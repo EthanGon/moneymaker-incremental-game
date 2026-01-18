@@ -5,24 +5,21 @@ using UnityEngine;
 public class GameLogic : MonoBehaviour
 {
     public static GameLogic instance;
-    public double moneyCount;
+    public Dictionary<int, string> placeLogValues;
     public TextMeshProUGUI moneyCounter;
+    public TextMeshProUGUI placeValueText;
+    public double numFormatted;
+    public double moneyCount;
     public double moneyPerSec;
     public double placeValueOfMoney;
-    public Dictionary<int, string> placeLogValues;
-    public double numFormatted;
-    public string[] placeValues = { "Thousand", "Million"};
-
+    public double logVal;
+    public string[] placeValues;
+ 
     private void Awake()
     {
         placeLogValues = new Dictionary<int, string>();
-        
         InitPlaceValues();
         
-
-
-
-
         instance = this;
         moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
     }
@@ -35,19 +32,27 @@ public class GameLogic : MonoBehaviour
             AddMoney(moneyPerSec);
         }
         PrintPlaceValue();
+
+        double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
+        if (tenthPower >= 6)
+        {
+            placeValueText.text = placeLogValues[(int)tenthPower];
+        }
+
+        logVal = (int)tenthPower;
     }
 
     public void AddMoney(double mps)
     {
         moneyCount += mps * Time.deltaTime;
-        moneyCounter.text = "MONEY\n" + moneyCount.ToString("F0");
+        moneyCounter.text = moneyCount.ToString("F3") + "dollars";
     }
 
 
     public void MoneyClick()
     {
         moneyCount++;
-        moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
+        moneyCounter.text = moneyCount.ToString("F3") + "dollars";
     }
 
     public void PrintPlaceValue()
@@ -65,9 +70,15 @@ public class GameLogic : MonoBehaviour
     {
         int num = 3;
 
-        for (int i = 0; i < placeValues.Length; i++ )
+        for (int i = 0; i < placeValues.Length; i++)
         {
             placeLogValues.Add(num, placeValues[i]);
+
+            for (int j = 1; j <= 2; j++)
+            {
+                placeLogValues.Add(num + j, placeValues[i]);
+            }
+
             num += 3;
         }
 
