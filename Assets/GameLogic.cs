@@ -6,14 +6,19 @@ public class GameLogic : MonoBehaviour
 {
     public static GameLogic instance;
     public Dictionary<int, string> placeLogValues;
+
+    [Header("UI Stuff")]
     public TextMeshProUGUI moneyCounter;
     public TextMeshProUGUI placeValueText;
+
+    [Header("Values")]
     public double numFormatted;
     public double moneyCount;
     public double moneyPerSec;
     public double placeValueOfMoney;
     public double logVal;
     public string[] placeValues;
+    public int placeCount;
  
     private void Awake()
     {
@@ -30,29 +35,54 @@ public class GameLogic : MonoBehaviour
         if (moneyCount < double.MaxValue)
         {
             AddMoney(moneyPerSec);
-        }
-        PrintPlaceValue();
 
-        double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
-        if (tenthPower >= 6)
+
+            PrintPlaceValue();
+
+            double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
+            if (tenthPower >= 6)
+            {
+                placeValueText.text = placeLogValues[(int)tenthPower];
+            }
+
+            double tempLogVal = logVal;
+            logVal = (int)tenthPower;
+
+            
+
+            if (tenthPower >= 6)
+            {
+                // number place has been changed
+                if (logVal != tempLogVal)
+                {
+                    if (placeCount == 2)
+                    {
+                        placeCount = -1;
+                    }
+                    placeCount++;
+                }
+            }
+        }
+        else if (moneyCount >= double.MaxValue)
         {
-            placeValueText.text = placeLogValues[(int)tenthPower];
+            moneyCounter.text = "INFINITY" + "\ndollars";
         }
 
-        logVal = (int)tenthPower;
+        
+        
     }
 
     public void AddMoney(double mps)
     {
         moneyCount += mps * Time.deltaTime;
-        moneyCounter.text = moneyCount.ToString("F3") + "dollars";
+        PrintPlaceValue();
     }
 
 
     public void MoneyClick()
     {
         moneyCount++;
-        moneyCounter.text = moneyCount.ToString("F3") + "dollars";
+        PrintPlaceValue();
     }
 
     public void PrintPlaceValue()
@@ -61,10 +91,34 @@ public class GameLogic : MonoBehaviour
         double place = Mathf.Pow(10, (float)tenthPower);
         placeValueOfMoney = place;
 
-        numFormatted = moneyCount / place;
-    }
+        
+        if (logVal >= 6)
+        {
+            
+            numFormatted = (moneyCount / place);
 
-    // when number gets to million and above then you should to format based on value
+            // How much to move decimal left based on placeCount
+            if (placeCount == 1)
+            {
+                numFormatted *= 10;
+            }
+
+            if (placeCount == 2)
+            {
+                numFormatted *= 10;
+                numFormatted *= 10;
+            }
+
+
+            moneyCounter.text = numFormatted.ToString("F3") + "\n dollars";
+        } 
+        else
+        {
+            moneyCounter.text = moneyCount.ToString("F3") + "\n dollars";
+        }
+
+        
+    }
 
     public void InitPlaceValues()
     {
