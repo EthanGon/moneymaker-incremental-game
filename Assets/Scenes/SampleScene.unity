@@ -167,7 +167,7 @@ MonoBehaviour:
   placeValueText: {fileID: 1052357586}
   numFormatted: 0
   moneyCount: 0
-  moneyPerSec: 0
+  moneyPerSec: 1
   placeValueOfMoney: 0
   logVal: 0
   placeValues:
@@ -182,6 +182,9 @@ MonoBehaviour:
   - Octilion
   - Nonilion
   - Decillion
+  placeCount: -1
+  delayTimer: 0
+  delayTime: 0.001
 --- !u!1 &351507223
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +911,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ooooo
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

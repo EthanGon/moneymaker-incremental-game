@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,9 @@ public class GameLogic : MonoBehaviour
     public double logVal;
     public string[] placeValues;
     public int placeCount;
+
+    public float delayTimer;
+    public float delayTime;
  
     private void Awake()
     {
@@ -35,9 +39,7 @@ public class GameLogic : MonoBehaviour
         if (moneyCount < double.MaxValue)
         {
             AddMoney(moneyPerSec);
-
-
-            PrintPlaceValue();
+            DisplayMoneyCount();
 
             double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
             if (tenthPower >= 6)
@@ -48,8 +50,7 @@ public class GameLogic : MonoBehaviour
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
-            
-
+            // when money counter is in the millions and above
             if (tenthPower >= 6)
             {
                 // number place has been changed if logVal != previous logVal
@@ -66,6 +67,7 @@ public class GameLogic : MonoBehaviour
         else if (moneyCount >= double.MaxValue)
         {
             moneyCounter.text = "INFINITY" + "\ndollars";
+
         }
 
         
@@ -75,55 +77,51 @@ public class GameLogic : MonoBehaviour
     public void AddMoney(double mps)
     {
         moneyCount += mps * Time.deltaTime;
-        PrintPlaceValue();
+        DisplayMoneyCount();
     }
 
 
     public void MoneyClick()
     {
         moneyCount++;
-        PrintPlaceValue();
+        DisplayMoneyCount();
     }
 
-    public void PrintPlaceValue()
+    public void DisplayMoneyCount()
     {
         double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount)); // round down to prevent something like 99 being considers 100th place
         double place = Mathf.Pow(10, (float)tenthPower);
         placeValueOfMoney = place;
+        string result = "";
 
-        
         if (logVal >= 6)
         {
             
             numFormatted = (moneyCount / place);
-
-
-            //if (placeCount == 1)
-            //{
-            //    numFormatted *= 10;
-            //}
-
-            //if (placeCount == 2)
-            //{
-            //    numFormatted *= 10;
-            //    numFormatted *= 10;
-            //}
 
             // How much to move decimal left based on placeCount
             for (int i = 0; i < placeCount; i++)
             {
                 numFormatted *= 10;
             }
-
-
-            moneyCounter.text = numFormatted.ToString("F3") + "\n dollars";
+         
+            result = numFormatted.ToString("F3") + "\n dollars";
         } 
         else
         {
-            moneyCounter.text = moneyCount.ToString("F3") + "\n dollars";
+            result = moneyCount.ToString("F3") + "\n dollars";
         }
 
         
+        
+        if (delayTimer < delayTime)
+        {
+            delayTimer += Time.deltaTime;
+        } else
+        {
+            moneyCounter.text = result;
+            delayTimer = 0;
+        }
     }
 
     public void InitPlaceValues()
@@ -134,6 +132,7 @@ public class GameLogic : MonoBehaviour
         {
             placeLogValues.Add(num, placeValues[i]);
 
+            // the next two are still within the same place 
             for (int j = 1; j <= 2; j++)
             {
                 placeLogValues.Add(num + j, placeValues[i]);
@@ -142,11 +141,11 @@ public class GameLogic : MonoBehaviour
             num += 3;
         }
 
-        ////Log Dictionary
-        //foreach (KeyValuePair<int, string> pair in placeLogValues)
-        //{
-        //    Debug.Log(pair.Key + " : " + pair.Value);
-        //}
+    }
+
+    public static GameLogic Instance()
+    {
+        return instance;
     }
 
 }
