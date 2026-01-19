@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: MoneyPrinter
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: Printer
-  numberOfBuilding: 0
+  numberOfBuilding: 34
+  mps: 5
