@@ -1,0 +1,9 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Building", menuName = "Scriptable Objects/Building")]
+public class Building : ScriptableObject
+{
+    public string buildingName;
+    public int numberOfBuilding;
+    public double mps;
+}
