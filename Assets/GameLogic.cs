@@ -52,7 +52,7 @@ public class GameLogic : MonoBehaviour
 
             if (tenthPower >= 6)
             {
-                // number place has been changed
+                // number place has been changed if logVal != previous logVal
                 if (logVal != tempLogVal)
                 {
                     if (placeCount == 2)
@@ -97,15 +97,21 @@ public class GameLogic : MonoBehaviour
             
             numFormatted = (moneyCount / place);
 
-            // How much to move decimal left based on placeCount
-            if (placeCount == 1)
-            {
-                numFormatted *= 10;
-            }
 
-            if (placeCount == 2)
+            //if (placeCount == 1)
+            //{
+            //    numFormatted *= 10;
+            //}
+
+            //if (placeCount == 2)
+            //{
+            //    numFormatted *= 10;
+            //    numFormatted *= 10;
+            //}
+
+            // How much to move decimal left based on placeCount
+            for (int i = 0; i < placeCount; i++)
             {
-                numFormatted *= 10;
                 numFormatted *= 10;
             }
 
@@ -136,11 +142,11 @@ public class GameLogic : MonoBehaviour
             num += 3;
         }
 
-        //Log Dictionary
-        foreach (KeyValuePair<int, string> pair in placeLogValues)
-        {
-            Debug.Log(pair.Key + " : " + pair.Value);
-        }
+        ////Log Dictionary
+        //foreach (KeyValuePair<int, string> pair in placeLogValues)
+        //{
+        //    Debug.Log(pair.Key + " : " + pair.Value);
+        //}
     }
 
 }
