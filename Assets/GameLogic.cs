@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameLogic : MonoBehaviour
@@ -35,17 +36,15 @@ public class GameLogic : MonoBehaviour
         
         instance = this;
         moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
+
+        //Mathf.Floor(Mathf.Log10((float)moneyCount));
+        Debug.Log(double.PositiveInfinity);
     }
 
 
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            moneyPerSec *= 10;
-        }
-        
         if (moneyCount < double.MaxValue)
         {
             AddMoney(moneyPerSec);
@@ -69,12 +68,14 @@ public class GameLogic : MonoBehaviour
                     placeCount++;
                 }
             }
-        }
-        else if (moneyCount >= double.MaxValue)
-        {
-            moneyCount = 0f;
+        } 
 
+        if (moneyCount >= double.MaxValue && logVal < 0 )
+        {
+            moneyCount = double.PositiveInfinity;
         }
+        
+
 
         
         
@@ -111,7 +112,15 @@ public class GameLogic : MonoBehaviour
                 numFormatted *= 10;
             }
 
-            result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
+            
+            try
+            {
+                result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
+            } 
+            catch (KeyNotFoundException e)
+            {
+                Debug.LogError(e.Message);
+            }
             
             
         }  
@@ -269,7 +278,7 @@ public class GameLogic : MonoBehaviour
             num += 3;
         }
 
-        
+        LogDictionary();
     }
 
     public void LogDictionary()
