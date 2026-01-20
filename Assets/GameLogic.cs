@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,6 +29,8 @@ public class GameLogic : MonoBehaviour
     public string[] tens;
     public string[] hundreds;
     public List<string> names;
+
+    public double varTest;
  
     private void Awake()
     {
@@ -50,8 +53,13 @@ public class GameLogic : MonoBehaviour
             AddMoney(moneyPerSec);
             DisplayMoneyCount();
 
-            double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
-            
+            double tenthPower = Math.Floor(Math.Log10((moneyCount))); // Getting Log10 of 0 results in -Infinity (note to self)
+
+            //if (tenthPower == double.NegativeInfinity && moneyCount >= double.PositiveInfinity)
+            //{
+            //    tenthPower = 308;
+            //}
+
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
@@ -70,15 +78,6 @@ public class GameLogic : MonoBehaviour
             }
         } 
 
-        if (moneyCount >= double.MaxValue && logVal < 0 )
-        {
-            moneyCount = double.PositiveInfinity;
-        }
-        
-
-
-        
-        
     }
 
     public void AddMoney(double mps)
@@ -96,14 +95,20 @@ public class GameLogic : MonoBehaviour
 
     public void DisplayMoneyCount()
     {
-        double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount)); // round down to prevent something like 99 being considers 100th place
-        double place = Mathf.Pow(10, (float)tenthPower);
+        //double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount)); // round down to prevent something like 99 being considers 100th place
+        double tenthPower = Math.Floor(Math.Log10((moneyCount)));
+        Debug.Log(tenthPower);
+
+        double place = Math.Pow(10, tenthPower);
         placeValueOfMoney = place;
         string result = "";
 
-        if (logVal >= 6)
+        if (logVal >= 307)
         {
-            
+            result = "A LOT OF FREAKING\n" + "dollars";
+        } 
+        else if (logVal >= 6) // >= 1,000,000
+        {
             numFormatted = (moneyCount / place);
 
             // How much to move decimal left based on placeCount
@@ -112,17 +117,16 @@ public class GameLogic : MonoBehaviour
                 numFormatted *= 10;
             }
 
-            
+
             try
             {
                 result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
-            } 
+            }
             catch (KeyNotFoundException e)
             {
-                Debug.LogError(e.Message);
+                result = numFormatted.ToString("F3") + "\n" + placeLogValues[308].ToLower() + " dollars";
             }
-            
-            
+
         }  
         else
         {
@@ -130,7 +134,7 @@ public class GameLogic : MonoBehaviour
         }
 
         
-        
+        // Delay for display
         if (delayTimer < delayTime)
         {
             delayTimer += Time.deltaTime;
@@ -278,7 +282,7 @@ public class GameLogic : MonoBehaviour
             num += 3;
         }
 
-        LogDictionary();
+        
     }
 
     public void LogDictionary()
