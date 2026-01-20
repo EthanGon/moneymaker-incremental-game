@@ -23,6 +23,7 @@ public class GameLogic : MonoBehaviour
 
     public float delayTimer;
     public float delayTime;
+    public string[] units;
  
     private void Awake()
     {
@@ -42,11 +43,7 @@ public class GameLogic : MonoBehaviour
             DisplayMoneyCount();
 
             double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount));
-            if (tenthPower >= 6)
-            {
-                placeValueText.text = placeLogValues[(int)tenthPower];
-            }
-
+            
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
@@ -105,7 +102,7 @@ public class GameLogic : MonoBehaviour
                 numFormatted *= 10;
             }
          
-            result = numFormatted.ToString("F3") + "\n dollars";
+            result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower] + " dollars";
         } 
         else
         {
@@ -140,6 +137,8 @@ public class GameLogic : MonoBehaviour
 
             num += 3;
         }
+
+        
 
     }
 
