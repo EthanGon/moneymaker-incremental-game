@@ -345,12 +345,6 @@ MonoBehaviour:
   - Centi
   - Ducenti
   - Trecenti
-  - Quadringenti
-  - Quingenti
-  - Sescenti
-  - Septingenti
-  - Octingenti
-  - Nongenti
   names: []
 --- !u!1 &351507223
 GameObject:

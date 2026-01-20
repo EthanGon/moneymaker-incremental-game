@@ -40,6 +40,11 @@ public class GameLogic : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            moneyPerSec *= 10;
+        }
         
         if (moneyCount < double.MaxValue)
         {
@@ -67,7 +72,7 @@ public class GameLogic : MonoBehaviour
         }
         else if (moneyCount >= double.MaxValue)
         {
-            moneyCounter.text = "INFINITY" + "\ndollars";
+            moneyCount = 0f;
 
         }
 
@@ -105,9 +110,11 @@ public class GameLogic : MonoBehaviour
             {
                 numFormatted *= 10;
             }
-         
-            result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower] + " dollars";
-        } 
+
+            result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
+            
+            
+        }  
         else
         {
             result = moneyCount.ToString("F3") + "\n dollars";
@@ -191,7 +198,6 @@ public class GameLogic : MonoBehaviour
                 }
             }
 
-
         }
 
         for (int i = 0; i < hundreds.Length; i++)
@@ -246,6 +252,32 @@ public class GameLogic : MonoBehaviour
 
         }
 
+        for (int i = 0; i < names.Count; i++)
+        {
+            if (num <= 0)
+            {
+                break;
+            }
+            placeLogValues.Add(num, names[i]);
+
+            // the next two are still within the same place 
+            for (int j = 1; j <= 2; j++)
+            {
+                placeLogValues.Add(num + j, names[i]);
+            }
+
+            num += 3;
+        }
+
+        
+    }
+
+    public void LogDictionary()
+    {
+        foreach (KeyValuePair<int, string> kvp in placeLogValues)
+        {
+            Debug.Log("10^ " + kvp.Key + " : " + kvp.Value);
+        }
     }
 
     public static GameLogic Instance()
