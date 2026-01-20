@@ -318,7 +318,6 @@ MonoBehaviour:
   - Septilion
   - Octilion
   - Nonilion
-  - Decillion
   placeCount: -1
   delayTimer: 0
   delayTime: 0.1
@@ -326,12 +325,33 @@ MonoBehaviour:
   - Un
   - Duo
   - Tre
-  - 'Quattuor '
-  - Quinqua
+  - Quattuor
+  - Quin
   - Se
   - Septe
   - Octo
   - Nove
+  tens:
+  - Deci
+  - Viginti
+  - Triginta
+  - Quadraginta
+  - Quinquaginta
+  - Sexaginta
+  - Septuaginta
+  - Octoginta
+  - Nonaginta
+  hundreds:
+  - Centi
+  - Ducenti
+  - Trecenti
+  - Quadringenti
+  - Quingenti
+  - Sescenti
+  - Septingenti
+  - Octingenti
+  - Nongenti
+  names: []
 --- !u!1 &351507223
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,9 +515,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 362787390}
-        m_TargetAssemblyTypeName: BuildingLogic, Assembly-CSharp
-        m_MethodName: BuyBuilding
+      - m_Target: {fileID: 227623205}
+        m_TargetAssemblyTypeName: GameLogic, Assembly-CSharp
+        m_MethodName: PlaySound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

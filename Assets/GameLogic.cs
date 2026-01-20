@@ -24,6 +24,9 @@ public class GameLogic : MonoBehaviour
     public float delayTimer;
     public float delayTime;
     public string[] units;
+    public string[] tens;
+    public string[] hundreds;
+    public List<string> names;
  
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class GameLogic : MonoBehaviour
         instance = this;
         moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
     }
+
 
     private void Update()
     {
@@ -138,7 +142,109 @@ public class GameLogic : MonoBehaviour
             num += 3;
         }
 
-        
+        for (int i = 0;i < tens.Length;i++)
+        {
+            names.Add(tens[i] + "llion");
+            for (int j = 0; j < units.Length; j++)
+            {
+                
+
+                if (j == 2 && (i == 1 || i == 2 || i == 3 || i == 4)) // Tre
+                {
+                    names.Add(units[j] + "s" + tens[i] + "llion");
+                }
+                else if (j == 5 && ((i == 1 || i == 2 || i == 3 || i == 4 || i == 6))) // Se
+                {
+                    if (i == 6) 
+                    {
+                        names.Add(units[j] + "x" + tens[i] + "llion");
+                    } 
+                    else
+                    {
+                        names.Add(units[j] + "s" + tens[i] + "llion");
+                    }
+                }
+                else if (j == 6 && (i != 8)) // Septe
+                {
+                    if ((i == 0 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6)) {
+                        names.Add(units[j] + "n" + tens[i] + "llion");
+                    } 
+                    else
+                    {
+                        names.Add(units[j] + "m" + tens[i] + "llion");
+                    }
+                }
+                else if (j == 8 && (i != 8)) // Nove
+                {
+                    if ((i == 0 || i == 2 || i == 3 || i == 4 || i == 5 || i == 6))
+                    {
+                        names.Add(units[j] + "n" + tens[i] + "llion");
+                    }
+                    else
+                    {
+                        names.Add(units[j] + "m" + tens[i] + "llion");
+                    }
+                }
+                else
+                {
+                    names.Add(units[j] + tens[i] + "llion");
+                }
+            }
+
+
+        }
+
+        for (int i = 0; i < hundreds.Length; i++)
+        {
+            names.Add(hundreds[i] + "llion");
+            for (int j = 0; j < units.Length; j++)
+            {
+
+                if (j == 2 && (i == 1 || i == 2 || i == 3 || i == 4)) // Tre
+                {
+                    names.Add(units[j] + "s" + hundreds[i] + "llion");
+                }
+                else if (j == 5 && ((i == 0 || i == 2 || i == 3 || i == 4 || i == 7))) // Se
+                {
+                    if (i == 0 || i == 7)
+                    {
+                        names.Add(units[j] + "x" + hundreds[i] + "llion");
+                    }
+                    else
+                    {
+                        names.Add(units[j] + "s" + hundreds[i] + "llion");
+                    }
+                }
+                else if (j == 6 && (i != 8)) // Septe
+                {
+                    if ((i == 7))
+                    {
+                        names.Add(units[j] + "m" + hundreds[i] + "llion");
+                    }
+                    else
+                    {
+                        names.Add(units[j] + "n" + hundreds[i] + "llion");
+                    }
+                }
+                else if (j == 8 && (i != 8)) // Nove
+                {
+                    if ((i == 7))
+                    {
+                        names.Add(units[j] + "m" + hundreds[i] + "llion");
+                    }
+                    else
+                    {
+                        names.Add(units[j] + "n" + hundreds[i] + "llion");
+                    }
+                }
+                else
+                {
+                    names.Add(units[j] + hundreds[i] + "llion");
+                }
+            }
+
+
+        }
 
     }
 
