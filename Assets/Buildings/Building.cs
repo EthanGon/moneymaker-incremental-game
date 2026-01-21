@@ -5,5 +5,11 @@ public class Building : ScriptableObject
 {
     public string buildingName;
     public int numberOfBuilding;
-    public double mps;
+    public double moneyPerSecond;
+    public double buildingCost;
+
+
+
+
+    
 }

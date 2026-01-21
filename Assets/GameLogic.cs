@@ -15,7 +15,7 @@ public class GameLogic : MonoBehaviour
     public TextMeshProUGUI placeValueText;
 
     [Header("Values")]
-    public double numFormatted;
+    public string numFormatted;
     public double moneyCount;
     public double moneyPerSec;
     public double placeValueOfMoney;
@@ -29,9 +29,8 @@ public class GameLogic : MonoBehaviour
     public string[] tens;
     public string[] hundreds;
     public List<string> names;
+    public int numValue;
 
-    public double varTest;
- 
     private void Awake()
     {
         placeLogValues = new Dictionary<int, string>();
@@ -40,26 +39,17 @@ public class GameLogic : MonoBehaviour
         instance = this;
         moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
 
-        //Mathf.Floor(Mathf.Log10((float)moneyCount));
-        Debug.Log(double.PositiveInfinity);
     }
 
 
     private void Update()
     {
-
         if (moneyCount < double.MaxValue)
         {
             AddMoney(moneyPerSec);
             DisplayMoneyCount();
 
             double tenthPower = Math.Floor(Math.Log10((moneyCount))); // Getting Log10 of 0 results in -Infinity (note to self)
-
-            //if (tenthPower == double.NegativeInfinity && moneyCount >= double.PositiveInfinity)
-            //{
-            //    tenthPower = 308;
-            //}
-
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
@@ -75,9 +65,22 @@ public class GameLogic : MonoBehaviour
                     }
                     placeCount++;
                 }
+            } 
+            else
+            {
+                placeCount = -1;
             }
-        } 
+        }
 
+        
+
+    }
+
+   
+
+    public double GetMoneyAmount()
+    {
+        return moneyCount;
     }
 
     public void AddMoney(double mps)
@@ -93,45 +96,73 @@ public class GameLogic : MonoBehaviour
         DisplayMoneyCount();
     }
 
-    public void DisplayMoneyCount()
+    public int MoveDecimal(double number)
     {
-        //double tenthPower = Mathf.Floor(Mathf.Log10((float)moneyCount)); // round down to prevent something like 99 being considers 100th place
-        double tenthPower = Math.Floor(Math.Log10((moneyCount)));
-        Debug.Log(tenthPower);
+        string numToString = number.ToString("N");
 
+        if (numToString[3] == ',')
+        {
+            return 2;
+        }
+
+        if (numToString[2] == ',')
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    public string FormatNumber(double moneyToFormat)
+    {
+        // round down to prevent something like 99 being considers 100th place
+        double tenthPower = Math.Floor(Math.Log10((moneyToFormat)));
         double place = Math.Pow(10, tenthPower);
-        placeValueOfMoney = place;
+        double formatted;
         string result = "";
 
-        if (logVal >= 307)
+        Debug.Log(moneyToFormat / place);
+
+        if (tenthPower >= 307)
         {
             result = "A LOT OF FREAKING\n" + "dollars";
-        } 
-        else if (logVal >= 6) // >= 1,000,000
+        }
+        else if ((int)tenthPower >= 6) // moneyCount >= 1,000,000
         {
-            numFormatted = (moneyCount / place);
-
+            formatted = (moneyCount / place);
+            Debug.Log(formatted);
+           
             // How much to move decimal left based on placeCount
-            for (int i = 0; i < placeCount; i++)
+            for (int i = 0; i < MoveDecimal(moneyCount); i++)
             {
-                numFormatted *= 10;
+                formatted *= 10;
             }
-
 
             try
             {
-                result = numFormatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
+                result = formatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
             }
             catch (KeyNotFoundException e)
             {
-                result = numFormatted.ToString("F3") + "\n" + placeLogValues[308].ToLower() + " dollars";
+                result = formatted.ToString("F3") + "\n" + placeLogValues[308].ToLower() + " dollars";
             }
 
-        }  
-        else
-        {
-            result = moneyCount.ToString("F3") + "\n dollars";
         }
+        else // moneyCount < 1,000,000
+        {
+            result = moneyToFormat.ToString("F3") + "\n dollars";
+        }
+
+        return result;
+    }
+
+    public void DisplayMoneyCount()
+    {
+        string result = "";
+
+        result = FormatNumber(moneyCount);
+        numFormatted = result;
+        
 
         
         // Delay for display
@@ -143,8 +174,12 @@ public class GameLogic : MonoBehaviour
             moneyCounter.text = result;
             delayTimer = 0;
         }
+
+ 
     }
 
+
+    // Need to improve this at some point, it does what I want but could be wayyy better I'm sure
     public void InitPlaceValues()
     {
         int num = 3;
