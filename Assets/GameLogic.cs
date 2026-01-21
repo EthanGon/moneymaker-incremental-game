@@ -124,8 +124,6 @@ public class GameLogic : MonoBehaviour
         double formatted;
         string result = "";
 
-        Debug.Log(moneyToFormat / place);
-
         if (tenthPower >= 307)
         {
             result = "A LOT OF FREAKING\n" + "dollars";
@@ -133,8 +131,7 @@ public class GameLogic : MonoBehaviour
         else if ((int)tenthPower >= 6) // moneyCount >= 1,000,000
         {
             formatted = (moneyCount / place);
-            Debug.Log(formatted);
-           
+              
             // How much to move decimal left based on placeCount
             for (int i = 0; i < MoveDecimal(moneyCount); i++)
             {

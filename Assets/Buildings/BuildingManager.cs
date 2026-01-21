@@ -1,13 +1,25 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour 
 {
     public Dictionary<Building, BuildingState> buildingStates = new Dictionary<Building, BuildingState>();
     public static BuildingManager instance;
+    public enum tradeOptions { buy, sell };
+    public tradeOptions tradeState;
+    public Color buttonOffColor;
+    public Color buttonOnColor;
+    public Button buyButton;
+    public Button sellButton;
 
     public void Awake()
     {
+        tradeState = tradeOptions.buy;
+        SetButtonState(buyButton, true);
+        SetButtonState(sellButton, false);
+
         instance = this;
     }
 
@@ -29,6 +41,32 @@ public class BuildingManager : MonoBehaviour
         }
 
         return totalMPS;
+    }
+
+    public void SetTradeToBuy()
+    {
+        tradeState = tradeOptions.buy;
+        SetButtonState(buyButton, true);
+        SetButtonState(sellButton, false);
+    }
+
+    public void SetTradeToSell()
+    {
+        tradeState = tradeOptions.sell;
+        SetButtonState(buyButton, false);
+        SetButtonState(sellButton, true);
+    }
+
+    public void SetButtonState(Button button, bool state)
+    {
+        if (state == true)
+        {
+            button.GetComponentInChildren<TextMeshProUGUI>().color = buttonOnColor;
+        }
+        else
+        {
+            button.GetComponentInChildren<TextMeshProUGUI>().color = buttonOffColor;
+        }
     }
 
 
