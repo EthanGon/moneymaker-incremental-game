@@ -37,13 +37,16 @@ public class GameLogic : MonoBehaviour
         InitPlaceValues();
         
         instance = this;
-        moneyCounter.text = "MONEY\n" + moneyCount.ToString("F3");
+        moneyCounter.text = FormatNumber(moneyCount);
 
     }
 
 
     private void Update()
     {
+        moneyPerSec = BuildingManager.instance.GetTotalMPS();
+
+
         if (moneyCount < double.MaxValue)
         {
             AddMoney(moneyPerSec);
@@ -150,7 +153,7 @@ public class GameLogic : MonoBehaviour
         }
         else // moneyCount < 1,000,000
         {
-            result = moneyToFormat.ToString("F3") + "\n dollars";
+            result = moneyToFormat.ToString("F3") + "\ndollars";
         }
 
         return result;

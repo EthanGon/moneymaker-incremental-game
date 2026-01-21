@@ -4,10 +4,9 @@ using UnityEngine;
 public class Building : ScriptableObject
 {
     public string buildingName;
-    public int numberOfBuilding;
-    public double moneyPerSecond;
-    public double buildingCost;
-
+    public double baseMPS;
+    public double baseCost;
+    public double costMultiplier;
 
 
 

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 public class BuildingLogic : MonoBehaviour
 {
     public Building building;
+    public BuildingState buildingState;
     public Button button;
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingAmountText;
@@ -13,7 +15,17 @@ public class BuildingLogic : MonoBehaviour
 
     private void Awake()
     {
+        
         button = GetComponent<Button>();
+
+        if (!BuildingManager.instance.buildingStates.ContainsKey(building))
+        {
+            BuildingManager.instance.buildingStates[building] = new BuildingState(building);
+        }
+
+
+        this.buildingState = BuildingManager.instance.buildingStates[building];
+
         DisplayBuildingDetails();
 
         button.onClick.AddListener(BuyBuilding);
@@ -21,35 +33,28 @@ public class BuildingLogic : MonoBehaviour
 
     private void Update()
     {
-        if (GameLogic.Instance().GetMoneyAmount() < this.building.buildingCost)
-        {
-            this.button.interactable = false;
-        } 
-        else
+        if (GameLogic.Instance().moneyCount >= buildingState.currCost)
         {
             this.button.interactable = true;
         }
-
-        GameLogic.Instance().AddMoney(building.moneyPerSecond * building.numberOfBuilding);
-
+        else
+        {
+            this.button.interactable = false;
+        }
     }
 
     public void BuyBuilding()
     {
-        building.numberOfBuilding++;
-        GameLogic.Instance().moneyCount -= building.buildingCost;
-        building.buildingCost += (building.numberOfBuilding * 0.25f);
+        buildingState.numOfBuildings++;
+        GameLogic.Instance().moneyCount -= buildingState.currCost;
+        buildingState.currCost = Math.Ceiling((buildingState.currCost + 0.83423f * buildingState.numOfBuildings) * building.costMultiplier);
         DisplayBuildingDetails();
-
     }
 
     public void DisplayBuildingDetails()
     {
-        buildingNameText.text = building.name;
-        buildingAmountText.text = "x" + building.numberOfBuilding.ToString();
-
-        string updateCostString = GameLogic.Instance().FormatNumber(building.buildingCost).Replace("\n", "");
-        Debug.Log(updateCostString);
-        buildingCostText.text = "buy: " + updateCostString;
+        buildingNameText.text = building.buildingName;
+        buildingAmountText.text = "x" + buildingState.numOfBuildings;
+        buildingCostText.text = "buy: " + GameLogic.instance.FormatNumber(buildingState.currCost);
     }
 }
