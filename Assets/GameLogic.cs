@@ -99,6 +99,7 @@ public class GameLogic : MonoBehaviour
         DisplayMoneyCount();
     }
 
+    // how much to move the decimal left based on where the first comma is
     public int MoveDecimal(double number)
     {
         string numToString = number.ToString("N");

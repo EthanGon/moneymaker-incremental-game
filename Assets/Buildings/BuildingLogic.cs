@@ -37,15 +37,33 @@ public class BuildingLogic : MonoBehaviour
 
     private void Update()
     {
-        if (GameLogic.Instance().moneyCount >= buildingState.currCost)
+        SetButtonStates();
+        UpdateButtonListeners();
+    }
+
+    public void SetButtonStates()
+    {
+        if (GameLogic.Instance().moneyCount >= buildingState.currCost && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
             this.button.interactable = true;
         }
-        else
+        else if (GameLogic.Instance().moneyCount < buildingState.currCost && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
             this.button.interactable = false;
         }
 
+        if (this.buildingState.numOfBuildings > 0 && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.sell)
+        {
+            this.button.interactable = true;
+        }
+        else if (this.buildingState.numOfBuildings == 0 && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.sell)
+        {
+            this.button.interactable = false;
+        }
+    }
+
+    public void UpdateButtonListeners()
+    {
         // Have to remove listener before adding new one or else it does both (idk why)
         if (BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
@@ -89,7 +107,7 @@ public class BuildingLogic : MonoBehaviour
         DisplayBuildingDetails();
     }
 
-    public void DisplayBuildingDetails()
+    private void DisplayBuildingDetails()
     {
         buildingNameText.text = building.buildingName;
         buildingAmountText.text = "x" + buildingState.numOfBuildings;
