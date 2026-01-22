@@ -37,7 +37,7 @@ public class GameLogic : MonoBehaviour
         InitPlaceValues();
         
         instance = this;
-        moneyCounter.text = FormatNumber(moneyCount);
+        moneyCounter.text = FormatNumber(moneyCount)[0];
 
     }
 
@@ -56,23 +56,23 @@ public class GameLogic : MonoBehaviour
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
-            // when money counter is in the millions and above
-            if (tenthPower >= 6)
-            {
-                // number place has been changed if logVal != previous logVal
-                if (logVal != tempLogVal)
-                {
-                    if (placeCount == 2)
-                    {
-                        placeCount = -1;
-                    }
-                    placeCount++;
-                }
-            } 
-            else
-            {
-                placeCount = -1;
-            }
+            //// when money counter is in the millions and above
+            //if (tenthPower >= 6)
+            //{
+            //    // number place has been changed if logVal != previous logVal
+            //    if (logVal != tempLogVal)
+            //    {
+            //        if (placeCount == 2)
+            //        {
+            //            placeCount = -1;
+            //        }
+            //        placeCount++;
+            //    }
+            //} 
+            //else
+            //{
+            //    placeCount = -1;
+            //}
         }
 
         
@@ -117,17 +117,20 @@ public class GameLogic : MonoBehaviour
         return 0;
     }
 
-    public string FormatNumber(double moneyToFormat)
+    public string[] FormatNumber(double moneyToFormat)
     {
         // round down to prevent something like 99 being considers 100th place
         double tenthPower = Math.Floor(Math.Log10((moneyToFormat)));
         double place = Math.Pow(10, tenthPower);
         double formatted;
-        string result = "";
+
+        // 0 = number formatted, 1 = place value
+        string[] result = new string[2];
+        
 
         if (tenthPower >= 307)
         {
-            result = "A LOT OF FREAKING\n" + "dollars";
+            result[0] = "A LOT OF FREAKING\n" + "dollars";
         }
         else if ((int)tenthPower >= 6) // moneyCount >= 1,000,000
         {
@@ -141,17 +144,20 @@ public class GameLogic : MonoBehaviour
 
             try
             {
-                result = formatted.ToString("F3") + "\n" + placeLogValues[(int)tenthPower].ToLower() + " dollars";
+                result[0] = formatted.ToString("F3");
+                result[1] = placeLogValues[(int)tenthPower].ToLower();
             }
             catch (KeyNotFoundException e)
             {
-                result = formatted.ToString("F3") + "\n" + placeLogValues[308].ToLower() + " dollars";
+                result[0] = formatted.ToString("F3");
+                result[1] = placeLogValues[(int)308].ToLower();
             }
 
         }
         else // moneyCount < 1,000,000
         {
-            result = moneyToFormat.ToString("F3") + "\ndollars";
+            int mon = (int)moneyToFormat;
+            result[0] = mon.ToString("N0");
         }
 
         return result;
@@ -161,10 +167,16 @@ public class GameLogic : MonoBehaviour
     {
         string result = "";
 
-        result = FormatNumber(moneyCount);
-        numFormatted = result;
+        if (moneyCount >= 1000000)
+        {
+            result = FormatNumber(moneyCount)[0] + "\n" + FormatNumber(moneyCount)[1] + " ";
+        }
+        else
+        {
+            result = FormatNumber(moneyCount)[0] + "\n";
+        }
         
-
+        numFormatted = result;
         
         // Delay for display
         if (delayTimer < delayTime)
@@ -172,11 +184,10 @@ public class GameLogic : MonoBehaviour
             delayTimer += Time.deltaTime;
         } else
         {
-            moneyCounter.text = result;
+            moneyCounter.text = result + "dollars";
             delayTimer = 0;
         }
 
- 
     }
 
 
