@@ -134,10 +134,10 @@ public class GameLogic : MonoBehaviour
         }
         else if ((int)tenthPower >= 6) // moneyCount >= 1,000,000
         {
-            formatted = (moneyCount / place);
+            formatted = (moneyToFormat / place);
               
             // How much to move decimal left based on placeCount
-            for (int i = 0; i < MoveDecimal(moneyCount); i++)
+            for (int i = 0; i < MoveDecimal(moneyToFormat); i++)
             {
                 formatted *= 10;
             }
@@ -156,7 +156,7 @@ public class GameLogic : MonoBehaviour
         }
         else // moneyCount < 1,000,000
         {
-            int mon = (int)moneyToFormat;
+            double mon = moneyToFormat;
             result[0] = mon.ToString("N0");
         }
 

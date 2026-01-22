@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87165e3295fb73445b8542b40bb21f3f, type: 3}
   m_Name: MoneyPrinter
   m_EditorClassIdentifier: Assembly-CSharp::Building
-  buildingName: Money Printer
-  numberOfBuilding: 0
-  moneyPerSecond: 0.5
-  buildingCost: 0
+  buildingName: MoneyPrinter
+  baseMPS: 1
+  baseCost: 1000000
+  costMultiplier: 2

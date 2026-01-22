@@ -12,4 +12,10 @@ public class BuildingState
         this.numOfBuildings = 0;
         this.currCost = building.baseCost;
     }
+
+    // work on this tmm 1/22 
+    public double CalculateBuildingCost()
+    {
+        return 0;
+    }
 }
