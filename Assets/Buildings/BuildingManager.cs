@@ -16,11 +16,10 @@ public class BuildingManager : MonoBehaviour
 
     public void Awake()
     {
+        instance = this;
         tradeState = tradeOptions.buy;
         SetButtonState(buyButton, true);
-        SetButtonState(sellButton, false);
-
-        instance = this;
+        SetButtonState(sellButton, false); 
     }
 
     public BuildingManager GetInstance()
@@ -28,6 +27,7 @@ public class BuildingManager : MonoBehaviour
         return instance;
     }
 
+    // adds up all the buildings mps based on number own buildings
     public double GetTotalMPS()
     {
         double totalMPS = 0;

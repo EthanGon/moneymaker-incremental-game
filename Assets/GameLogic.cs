@@ -56,23 +56,6 @@ public class GameLogic : MonoBehaviour
             double tempLogVal = logVal;
             logVal = (int)tenthPower;
 
-            //// when money counter is in the millions and above
-            //if (tenthPower >= 6)
-            //{
-            //    // number place has been changed if logVal != previous logVal
-            //    if (logVal != tempLogVal)
-            //    {
-            //        if (placeCount == 2)
-            //        {
-            //            placeCount = -1;
-            //        }
-            //        placeCount++;
-            //    }
-            //} 
-            //else
-            //{
-            //    placeCount = -1;
-            //}
         }
 
         
@@ -124,7 +107,7 @@ public class GameLogic : MonoBehaviour
         double place = Math.Pow(10, tenthPower);
         double formatted;
 
-        // 0 = number formatted, 1 = place value
+        // index0 = number formatted, index1 = name of place value
         string[] result = new string[2];
         
 

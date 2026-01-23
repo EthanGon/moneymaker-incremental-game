@@ -8,6 +8,7 @@ public class BuildingLogic : MonoBehaviour
     public Building building;
     public BuildingState buildingState;
     public Button button;
+    public CanvasGroup canvasGroup;
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingAmountText;
     public TextMeshProUGUI buildingCostText;
@@ -15,25 +16,35 @@ public class BuildingLogic : MonoBehaviour
 
 
     private void Awake()
-    {
-        
-        button = GetComponent<Button>();
+    { 
+        this.button = this.GetComponent<Button>();
+        this.canvasGroup = this.GetComponent<CanvasGroup>();
+    }
 
-        if (!BuildingManager.instance.buildingStates.ContainsKey(building))
+    private void Start()
+    {
+
+        // this needs to be in start, so BuildingManager Instance can first be added
+        try
         {
-            BuildingManager.instance.buildingStates[building] = new BuildingState(building);
+            if (!BuildingManager.instance.buildingStates.ContainsKey(this.building))
+            {
+                BuildingManager.instance.buildingStates[this.building] = new BuildingState(this.building);
+            }
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.Log(BuildingManager.instance.name);
+
         }
 
-        this.buildingState = BuildingManager.instance.buildingStates[building];
+        this.buildingState = BuildingManager.instance.buildingStates[this.building];
 
         DisplayBuildingDetails();
 
         button.onClick.AddListener(BuyBuilding);
 
         Debug.Log("# of " + buildingNameText.text + "s: " + buildingState.numOfBuildings);
-        
-        
-
     }
 
     private void Update()
@@ -62,6 +73,8 @@ public class BuildingLogic : MonoBehaviour
         {
             this.button.interactable = false;
         }
+
+        canvasGroup.alpha = this.button.IsInteractable() ? 1 : 0.85f;
     }
 
     public void UpdateButtonListeners()
@@ -80,11 +93,11 @@ public class BuildingLogic : MonoBehaviour
         DisplayBuildingDetails();
     }
 
-    public void SellBuilding()
+    private void SellBuilding()
     {
         if (buildingState.numOfBuildings > 0)
         {
-            double previousCost = (building.baseCost * building.costMultiplier);
+            double previousCost = (building.baseCost * (buildingState.numOfBuildings-1) * building.costMultiplier);
             GameLogic.Instance().moneyCount += previousCost;
 
             buildingState.numOfBuildings--;
@@ -102,11 +115,11 @@ public class BuildingLogic : MonoBehaviour
         }
     }
 
-    public void BuyBuilding()
+    private void BuyBuilding()
     {
         buildingState.numOfBuildings++;
         GameLogic.Instance().moneyCount -= buildingState.currCost;
-        buildingState.currCost = building.baseCost * building.costMultiplier;
+        buildingState.currCost = (building.baseCost * buildingState.numOfBuildings * building.costMultiplier);
         DisplayBuildingDetails();
     }
 
@@ -114,13 +127,15 @@ public class BuildingLogic : MonoBehaviour
     {
         if (BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
+            
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
-            buildingCostText.text = "buy: " + GameLogic.instance.FormatNumber(buildingState.currCost)[0] + " " + GameLogic.instance.FormatNumber(buildingState.currCost)[1];
+            buildingCostText.text = "buy: $" + GameLogic.instance.FormatNumber(buildingState.currCost)[0] + " " + GameLogic.instance.FormatNumber(buildingState.currCost)[1];
         }
         else
         {
-            double previousCost = building.baseCost * building.costMultiplier;
+
+            double previousCost = (building.baseCost * (buildingState.numOfBuildings-1) * building.costMultiplier);
             double moneyBack = previousCost;
 
             if (buildingState.numOfBuildings == 0)
@@ -135,7 +150,7 @@ public class BuildingLogic : MonoBehaviour
 
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
-            buildingCostText.text = "sell: " + GameLogic.instance.FormatNumber(moneyBack)[0] + GameLogic.instance.FormatNumber(moneyBack)[1];
+            buildingCostText.text = "sell: $" + GameLogic.instance.FormatNumber(moneyBack)[0] + GameLogic.instance.FormatNumber(moneyBack)[1];
         }
     }
 }
