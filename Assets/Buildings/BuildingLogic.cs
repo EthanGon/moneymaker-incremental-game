@@ -123,6 +123,14 @@ public class BuildingLogic : MonoBehaviour
         DisplayBuildingDetails();
     }
 
+    public double CalculateBuildingCost(int numBuildings)
+    {
+        double cost = 0;
+
+
+        return 0;
+    }
+
     private void DisplayBuildingDetails()
     {
         if (BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)

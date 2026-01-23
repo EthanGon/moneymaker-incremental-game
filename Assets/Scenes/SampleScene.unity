@@ -1361,7 +1361,7 @@ GameObject:
   - component: {fileID: 703079338}
   - component: {fileID: 703079337}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Numbers Details Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1576,7 +1576,7 @@ GameObject:
   - component: {fileID: 860280404}
   - component: {fileID: 860280403}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Big Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2265,7 +2265,7 @@ GameObject:
   - component: {fileID: 1180551607}
   - component: {fileID: 1180551606}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: Buildings Buy Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
