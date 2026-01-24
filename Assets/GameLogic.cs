@@ -12,18 +12,20 @@ public class GameLogic : MonoBehaviour
 
     [Header("UI Stuff")]
     public TextMeshProUGUI moneyCounter;
-    public TextMeshProUGUI placeValueText;
+    public TextMeshProUGUI mps;
+    public TextMeshProUGUI mpm;
+    public double moneyCount;
+    public double moneyPerSec;
+    public double moneyPerMin;
 
     [Header("Values")]
     public string numFormatted;
-    public double moneyCount;
-    public double moneyPerSec;
     public double placeValueOfMoney;
     public double logVal;
     public string[] placeValues;
     public int placeCount;
 
-    public float delayTimer;
+    private float delayTimer;
     public float delayTime;
     public string[] units;
     public string[] tens;
@@ -45,6 +47,9 @@ public class GameLogic : MonoBehaviour
     private void Update()
     {
         moneyPerSec = BuildingManager.instance.GetTotalMPS();
+        moneyPerMin = moneyPerSec * 60.0;
+        mps.text = "per second: " + FormatNumber(moneyPerSec)[0] + " " + FormatNumber(moneyPerSec)[1];
+        mpm.text = "per minute: " + FormatNumber(moneyPerMin)[0] + " " + FormatNumber(moneyPerMin)[1];
 
 
         if (moneyCount < double.MaxValue)
@@ -140,7 +145,16 @@ public class GameLogic : MonoBehaviour
         else // moneyCount < 1,000,000
         {
             double mon = moneyToFormat;
-            result[0] = mon.ToString("N0");
+
+            if (moneyToFormat == moneyPerSec)
+            {
+                result[0] = mon.ToString("N3");
+            }
+            else
+            {
+                result[0] = mon.ToString("N0");
+            }
+  
         }
 
         return result;
@@ -165,11 +179,13 @@ public class GameLogic : MonoBehaviour
         if (delayTimer < delayTime)
         {
             delayTimer += Time.deltaTime;
-        } else
+        } 
+        else
         {
             moneyCounter.text = result + "dollars";
             delayTimer = 0;
         }
+
 
     }
 

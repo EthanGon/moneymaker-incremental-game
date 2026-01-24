@@ -97,7 +97,7 @@ public class BuildingLogic : MonoBehaviour
     {
         if (buildingState.numOfBuildings > 0)
         {
-            double previousCost = (building.baseCost * (buildingState.numOfBuildings-1) * building.costMultiplier);
+            double previousCost = CalculateBuildingCost(buildingState.numOfBuildings - 1);
             GameLogic.Instance().moneyCount += previousCost;
 
             buildingState.numOfBuildings--;
@@ -119,7 +119,7 @@ public class BuildingLogic : MonoBehaviour
     {
         buildingState.numOfBuildings++;
         GameLogic.Instance().moneyCount -= buildingState.currCost;
-        buildingState.currCost = (building.baseCost * buildingState.numOfBuildings * building.costMultiplier);
+        buildingState.currCost = CalculateBuildingCost(buildingState.numOfBuildings);
         DisplayBuildingDetails();
     }
 
@@ -127,8 +127,9 @@ public class BuildingLogic : MonoBehaviour
     {
         double cost = 0;
 
+        cost = this.building.baseCost * Math.Ceiling(Math.Pow(1.15, numBuildings));
 
-        return 0;
+        return cost;
     }
 
     private void DisplayBuildingDetails()
@@ -143,7 +144,7 @@ public class BuildingLogic : MonoBehaviour
         else
         {
 
-            double previousCost = (building.baseCost * (buildingState.numOfBuildings-1) * building.costMultiplier);
+            double previousCost = CalculateBuildingCost(buildingState.numOfBuildings-1);
             double moneyBack = previousCost;
 
             if (buildingState.numOfBuildings == 0)
