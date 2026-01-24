@@ -146,6 +146,7 @@ public class GameLogic : MonoBehaviour
         {
             double mon = moneyToFormat;
 
+            // fixes the mps rounding up if I specify if the argument passed is the mps
             if (moneyToFormat == moneyPerSec)
             {
                 result[0] = mon.ToString("N3");
