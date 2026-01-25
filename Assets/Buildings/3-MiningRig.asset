@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87165e3295fb73445b8542b40bb21f3f, type: 3}
-  m_Name: Gaming Mouse
+  m_Name: 3-MiningRig
   m_EditorClassIdentifier: Assembly-CSharp::Building
-  buildingName: Gaming Mouse
-  baseMPS: 0.5
-  baseCost: 10
-  costMultiplier: 1.25
+  buildingName: MiningRig
+  baseMPS: 10
+  baseCost: 1000

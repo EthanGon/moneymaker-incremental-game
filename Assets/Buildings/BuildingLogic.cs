@@ -138,7 +138,7 @@ public class BuildingLogic : MonoBehaviour
         {
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
-            buildingCostText.text = "buy: $" + GameLogic.instance.FormatNumber(buildingState.currCost)[0] + " " + GameLogic.instance.FormatNumber(buildingState.currCost)[1];
+            buildingCostText.text = "buy:$" + GameLogic.instance.FormatNumber(buildingState.currCost)[0] + " " + GameLogic.instance.FormatNumber(buildingState.currCost)[1];
         }
         else
         {
@@ -157,7 +157,12 @@ public class BuildingLogic : MonoBehaviour
 
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
-            buildingCostText.text = "sell: $" + GameLogic.instance.FormatNumber(moneyBack)[0] + GameLogic.instance.FormatNumber(moneyBack)[1];
+            buildingCostText.text = "sell:$" + GameLogic.instance.FormatNumber(moneyBack)[0] + " " + GameLogic.instance.FormatNumber(moneyBack)[1];
         }
+    }
+
+    public void SetBuilding(Building b)
+    {
+        this.building = b;
     }
 }

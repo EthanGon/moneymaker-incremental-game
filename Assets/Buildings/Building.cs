@@ -6,6 +6,5 @@ public class Building : ScriptableObject
     public string buildingName;
     public double baseMPS;
     public double baseCost;
-    public double costMultiplier = 1.5f;
 
 }

@@ -1,0 +1,53 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class BuildingButtonsManager : MonoBehaviour
+{
+    [SerializeField] private Building[] buildings;
+    public int buildingCount;
+    public GameObject buildingButtonPrefab;
+    public float yOffset;
+    private List<GameObject> buttons = new List<GameObject>();
+    public int displayCount;
+
+    private void Awake()
+    {
+
+        for (int i = 0; i < buildings.Length; i++)
+        {
+            GameObject obj = Instantiate(buildingButtonPrefab, Vector3.zero, Quaternion.identity);
+            obj.transform.SetParent(transform, false);
+            obj.SetActive(false);
+            buttons.Add(obj);
+        }
+        
+        float baseOffset = 0;
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            GameObject button = buttons[i];
+
+            if (i < displayCount)
+            {
+                button.SetActive(true);
+                button.GetComponent<BuildingLogic>().SetBuilding(buildings[i]);
+                button.transform.localPosition = new Vector3(0 + 206.205f, baseOffset, 0); // I hard code 206.205 b/c the x kept being -206.205, and I didnt know how else to fix it lol
+                baseOffset -= yOffset;
+                   
+            }
+            else
+            {
+                button.SetActive(false);
+            }
+
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
