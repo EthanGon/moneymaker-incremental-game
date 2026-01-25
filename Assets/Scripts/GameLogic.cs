@@ -39,7 +39,7 @@ public class GameLogic : MonoBehaviour
         InitPlaceValues();
         
         instance = this;
-        moneyCounter.text = FormatNumber(moneyCount)[0];
+        //moneyCounter.text = FormatNumber(moneyCount)[0];
 
     }
 
@@ -149,7 +149,24 @@ public class GameLogic : MonoBehaviour
             // fixes the mps rounding up if I specify if the argument passed is the mps
             if (moneyToFormat == moneyPerSec)
             {
-                result[0] = mon.ToString("N3");
+                if (moneyToFormat == 0)
+                {
+                    result[0] = mon.ToString("F0");
+                }
+                else
+                {
+
+                    // removes the decimal point if num is whole b/c 1.0, 2.0, etc looks ugly
+                    if (moneyToFormat % 1 != 0)
+                    {
+                        result[0] = mon.ToString("N1");
+                    }
+                    else
+                    {
+                        result[0] = mon.ToString("N0");
+                    }
+                }
+                    
             }
             else
             {

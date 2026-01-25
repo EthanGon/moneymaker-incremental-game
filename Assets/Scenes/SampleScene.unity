@@ -390,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 227623204}
   - component: {fileID: 227623205}
+  - component: {fileID: 227623206}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -430,9 +431,6 @@ MonoBehaviour:
   moneyCount: 0
   moneyPerSec: 0
   moneyPerMin: 0
-  numFormatted: 
-  placeValueOfMoney: 0
-  logVal: 0
   placeValues:
   - Thousand
   - Million
@@ -444,6 +442,9 @@ MonoBehaviour:
   - Septilion
   - Octilion
   - Nonilion
+  numFormatted: 
+  placeValueOfMoney: 0
+  logVal: 0
   placeCount: -1
   delayTime: 0.1
   units:
@@ -471,6 +472,20 @@ MonoBehaviour:
   - Ducenti
   names: []
   numValue: 0
+--- !u!114 &227623206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227623203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372a8bc2d8567774994d87ef4df1a2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  fontAsset: {fileID: 11400000, guid: 0f2d16d3035454549b58a1c8d1d0698d, type: 2}
+  textGUIs: []
 --- !u!1 &273050683
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,10 +535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec4008217f2dcf4683e9b242747bd19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseOnScreen
-  numTest: 0
   offsetFromMiddle: 200
   offsetIncrease: 50
-  anglePosOffset: 0
   rotSpeed: 5
   steps: 9
   poolSize: 520

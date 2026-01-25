@@ -136,14 +136,12 @@ public class BuildingLogic : MonoBehaviour
     {
         if (BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
-            
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
             buildingCostText.text = "buy: $" + GameLogic.instance.FormatNumber(buildingState.currCost)[0] + " " + GameLogic.instance.FormatNumber(buildingState.currCost)[1];
         }
         else
         {
-
             double previousCost = CalculateBuildingCost(buildingState.numOfBuildings-1);
             double moneyBack = previousCost;
 
