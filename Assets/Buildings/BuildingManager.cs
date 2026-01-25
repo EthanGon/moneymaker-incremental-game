@@ -70,6 +70,26 @@ public class BuildingManager : MonoBehaviour
     }
 
 
+    /*
+     * Gets number of cursors to display on screen 
+     */
+    public int NumberOfCursorBuildings(Building building)
+    {
+        if (!buildingStates.ContainsKey(building))
+        {
+            Debug.Log("Building Not Found");
+            return 0;
+        }
+         
+        if (!building.buildingName.Equals("Gaming Mouse"))
+        {
+            return 0;
+        }
+
+        return buildingStates[building].numOfBuildings;
+    }
+
+
 
 
 }

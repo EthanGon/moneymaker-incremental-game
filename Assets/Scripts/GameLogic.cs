@@ -19,10 +19,10 @@ public class GameLogic : MonoBehaviour
     public double moneyPerMin;
 
     [Header("Values")]
+    public string[] placeValues;
     public string numFormatted;
     public double placeValueOfMoney;
     public double logVal;
-    public string[] placeValues;
     public int placeCount;
 
     private float delayTimer;
