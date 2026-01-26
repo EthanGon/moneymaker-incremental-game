@@ -13,6 +13,7 @@ public class BuildingLogic : MonoBehaviour
     public TextMeshProUGUI buildingAmountText;
     public TextMeshProUGUI buildingCostText;
     public double currentBuildingCost;
+    public bool reachedEnoughToBuy;
 
 
     private void Awake()
@@ -23,7 +24,6 @@ public class BuildingLogic : MonoBehaviour
 
     private void Start()
     {
-
         // this needs to be in start, so BuildingManager Instance can first be added
         try
         {
@@ -37,6 +37,8 @@ public class BuildingLogic : MonoBehaviour
             Debug.Log(BuildingManager.instance.name);
 
         }
+
+       
 
         this.buildingState = BuildingManager.instance.buildingStates[this.building];
 
@@ -52,10 +54,17 @@ public class BuildingLogic : MonoBehaviour
         currentBuildingCost = buildingState.currCost;
         SetButtonStates();
         UpdateButtonListeners();
+
+        if (GameLogic.Instance().moneyCount >= this.building.baseCost && !reachedEnoughToBuy)
+        {
+            reachedEnoughToBuy = true;
+            gameObject.transform.Find("Image").GetComponent<Image>().color = Color.white;
+        }
     }
 
     public void SetButtonStates()
     {
+        
         if (GameLogic.Instance().moneyCount >= buildingState.currCost && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.buy)
         {
             this.button.interactable = true;
@@ -117,6 +126,8 @@ public class BuildingLogic : MonoBehaviour
 
     private void BuyBuilding()
     {
+        
+
         buildingState.numOfBuildings++;
         GameLogic.Instance().moneyCount -= buildingState.currCost;
         buildingState.currCost = CalculateBuildingCost(buildingState.numOfBuildings);
@@ -158,6 +169,12 @@ public class BuildingLogic : MonoBehaviour
             buildingNameText.text = building.buildingName;
             buildingAmountText.text = "x" + buildingState.numOfBuildings;
             buildingCostText.text = "sell:$" + GameLogic.instance.FormatNumber(moneyBack)[0] + " " + GameLogic.instance.FormatNumber(moneyBack)[1];
+        }
+
+        if (!reachedEnoughToBuy)
+        {
+            buildingNameText.text = "???";
+            gameObject.transform.Find("Image").GetComponent<Image>().color = Color.black;
         }
     }
 
