@@ -44,6 +44,10 @@ public class MouseOnScreen : MonoBehaviour
         {
             GameObject mini = objectPool[i];
 
+            /* I use i as my way to determine the degree, then I multiply by it steps so it's spread out a bit
+             * once degreeToRad = 0 again, I just increase the range away from center
+             * I also add .5 to the angle on each scale to give it a nice little effect.
+             */
             if (i < BuildingManager.instance.NumberOfCursorBuildings(cursorBuildingRef))
             {
                 mini.SetActive(true);

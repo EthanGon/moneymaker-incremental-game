@@ -22,7 +22,23 @@ public class BuildingButtonsManager : MonoBehaviour
             obj.SetActive(false);
             buttons.Add(obj);
         }
-        
+
+        DisplayButtons();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (GameLogic.instance.moneyCount >= buildings[displayCount-1].baseCost && displayCount < buildings.Length)
+        {
+            displayCount += 2;
+            DisplayButtons();
+        }
+    }
+
+    // note I should update this so when it's called to enable buttons, it only goes through the ones that NEED to be enabled
+    public void DisplayButtons()
+    {
         float baseOffset = 0;
 
         for (int i = 0; i < buttons.Count; i++)
@@ -35,7 +51,7 @@ public class BuildingButtonsManager : MonoBehaviour
                 button.GetComponent<BuildingLogic>().SetBuilding(buildings[i]);
                 button.transform.localPosition = new Vector3(0 + 206.205f, baseOffset, 0); // I hard code 206.205 b/c the x kept being -206.205, and I didnt know how else to fix it lol
                 baseOffset -= yOffset;
-                   
+
             }
             else
             {
@@ -43,11 +59,5 @@ public class BuildingButtonsManager : MonoBehaviour
             }
 
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -81,7 +81,7 @@ public class BuildingManager : MonoBehaviour
             return 0;
         }
          
-        if (!building.buildingName.Equals("Gaming Mouse"))
+        if (!building.buildingName.Equals("GamingMouse"))
         {
             return 0;
         }

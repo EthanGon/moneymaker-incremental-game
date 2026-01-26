@@ -13,5 +13,4 @@ public class BuildingState
         this.currCost = building.baseCost;
     }
 
-    
 }
