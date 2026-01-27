@@ -22,8 +22,7 @@ public class GameLogic : MonoBehaviour
     public string[] placeValues;
     public string numFormatted;
     public double placeValueOfMoney;
-    public double logVal;
-    public int placeCount;
+    private double logVal;
 
     private float delayTimer;
     public float delayTime;

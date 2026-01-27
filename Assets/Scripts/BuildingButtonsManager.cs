@@ -29,6 +29,7 @@ public class BuildingButtonsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // out of bounds error, fine for NOOOW but gotta fix it
         if (GameLogic.instance.moneyCount >= buildings[displayCount-1].baseCost && displayCount < buildings.Length)
         {
             displayCount += 2;

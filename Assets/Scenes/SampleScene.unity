@@ -307,8 +307,6 @@ MonoBehaviour:
   - Nonilion
   numFormatted: 
   placeValueOfMoney: 0
-  logVal: 0
-  placeCount: -1
   delayTime: 0.1
   units:
   - Un
@@ -348,7 +346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   fontAsset: {fileID: 11400000, guid: 0f2d16d3035454549b58a1c8d1d0698d, type: 2}
-  textGUIs: []
 --- !u!1 &273050683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,6 +2771,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b2d04ffddab086740b9a97625c617a1f, type: 2}
   - {fileID: 11400000, guid: de1c9e79beb447a4c9655acda40f9688, type: 2}
   - {fileID: 11400000, guid: c4a8fd08ad45d3446ae4718a6fee438e, type: 2}
+  - {fileID: 11400000, guid: a934a950c065cf647ac14fca08138c0b, type: 2}
   buildingCount: 2
   buildingButtonPrefab: {fileID: 5576721996271478661, guid: 3375c9142edb3ac4a8541033a215b0b6, type: 3}
   yOffset: 120

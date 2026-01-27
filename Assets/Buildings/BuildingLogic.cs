@@ -35,18 +35,13 @@ public class BuildingLogic : MonoBehaviour
         catch (NullReferenceException e)
         {
             Debug.Log(BuildingManager.instance.name);
-
         }
 
        
 
         this.buildingState = BuildingManager.instance.buildingStates[this.building];
-
         DisplayBuildingDetails();
-
         button.onClick.AddListener(BuyBuilding);
-
-        Debug.Log("# of " + buildingNameText.text + "s: " + buildingState.numOfBuildings);
     }
 
     private void Update()
@@ -126,8 +121,6 @@ public class BuildingLogic : MonoBehaviour
 
     private void BuyBuilding()
     {
-        
-
         buildingState.numOfBuildings++;
         GameLogic.Instance().moneyCount -= buildingState.currCost;
         buildingState.currCost = CalculateBuildingCost(buildingState.numOfBuildings);
