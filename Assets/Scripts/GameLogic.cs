@@ -17,6 +17,7 @@ public class GameLogic : MonoBehaviour
     public double moneyCount;
     public double moneyPerSec;
     public double moneyPerMin;
+    public int levelTokens;
 
     [Header("Values")]
     public string[] placeValues;
