@@ -55,6 +55,8 @@ public class BuildingLogic : MonoBehaviour
             reachedEnoughToBuy = true;
             gameObject.transform.Find("Image").GetComponent<Image>().color = Color.white;
         }
+
+
     }
 
     public void SetButtonStates()
