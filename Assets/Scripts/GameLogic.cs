@@ -77,6 +77,7 @@ public class GameLogic : MonoBehaviour
     public void AddMoney(double mps)
     {
         moneyCount += mps * Time.deltaTime;
+        TokenManager.Instance().currentXP += mps * Time.deltaTime; 
         DisplayMoneyCount();
     }
 
@@ -84,6 +85,7 @@ public class GameLogic : MonoBehaviour
     public void MoneyClick()
     {
         moneyCount++;
+        TokenManager.Instance().currentXP++;
         DisplayMoneyCount();
     }
 
