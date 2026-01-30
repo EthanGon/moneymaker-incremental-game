@@ -32,4 +32,9 @@ public class TokenManager : MonoBehaviour
             neededXP = neededXP * 2;
         }
     }
+
+    public int GetTokenCount()
+    {
+        return tokenCount;
+    }
 }

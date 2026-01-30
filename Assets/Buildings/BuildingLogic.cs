@@ -1,9 +1,10 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BuildingLogic : MonoBehaviour
+public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 {
     public Building building;
     public BuildingState buildingState;
@@ -21,6 +22,8 @@ public class BuildingLogic : MonoBehaviour
         this.button = this.GetComponent<Button>();
         this.canvasGroup = this.GetComponent<CanvasGroup>();
     }
+
+    
 
     private void Start()
     {
@@ -176,5 +179,14 @@ public class BuildingLogic : MonoBehaviour
     public void SetBuilding(Building b)
     {
         this.building = b;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right && reachedEnoughToBuy)
+        {
+            Debug.Log("Button was right clicked");
+            UpgradeWindow.Instance().SetSelectedBuilding(building);
+        }
     }
 }

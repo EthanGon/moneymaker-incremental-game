@@ -37,12 +37,7 @@ public class BuildingManager : MonoBehaviour
             var data = kvp.Key;
             var state = kvp.Value;
 
-            /* TODO: 
-             * For loop that will return the value of doing (baseCost * 2), n times, n being the efficiency level
-             * same things for influence level
-             */
-
-            totalMPS += data.baseMPS * state.numOfBuildings;
+            totalMPS += state.GetCurrMPS() * state.numOfBuildings;
         }
 
         return totalMPS;
