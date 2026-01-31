@@ -21,6 +21,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
     { 
         this.button = this.GetComponent<Button>();
         this.canvasGroup = this.GetComponent<CanvasGroup>();
+        
     }
 
     

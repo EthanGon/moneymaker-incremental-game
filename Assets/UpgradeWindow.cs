@@ -29,6 +29,7 @@ public class UpgradeWindow : MonoBehaviour
             TokenManager.Instance().DecreaseTokenCount();
         }
     }
+  
 
     public void SetSelectedBuilding(Building b)
     {
