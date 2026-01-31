@@ -23,8 +23,10 @@ public class UpgradeWindow : MonoBehaviour
     {
         if (TokenManager.Instance().GetTokenCount() > 0)
         {
+            Debug.Log("Eff Level Increased");
             BuildingManager.instance.buildingStates[selectedBuilding].IncreaseEffLevel();
             buildingCurrMPS.text = "Mps: " + BuildingManager.instance.buildingStates[selectedBuilding].GetCurrMPS();
+            TokenManager.Instance().DecreaseTokenCount();
         }
     }
 

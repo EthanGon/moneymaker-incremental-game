@@ -25,12 +25,19 @@ public class TokenManager : MonoBehaviour
     void Update()
     {
         xpText.text = currentXP.ToString("N0") + "/" + neededXP.ToString("N0");
+        xpText.text = GameLogic.Instance().FormatNumber(currentXP)[0] + " " + GameLogic.Instance().FormatNumber(currentXP)[1] + " / " 
+            + GameLogic.Instance().FormatNumber(neededXP)[0] + " " + GameLogic.Instance().FormatNumber(neededXP)[1];
         
         if (currentXP >= neededXP)
         {
             tokenCount++;
             neededXP = neededXP * 2;
         }
+    }
+
+    public void DecreaseTokenCount()
+    {
+        tokenCount--;
     }
 
     public int GetTokenCount()

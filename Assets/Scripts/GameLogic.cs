@@ -41,6 +41,7 @@ public class GameLogic : MonoBehaviour
         instance = this;
         //moneyCounter.text = FormatNumber(moneyCount)[0];
 
+        LogDictionary();
     }
 
 
@@ -353,10 +354,19 @@ public class GameLogic : MonoBehaviour
 
     public void LogDictionary()
     {
+        int max = 0;
+        int maxKey = 0;
+
         foreach (KeyValuePair<int, string> kvp in placeLogValues)
         {
             Debug.Log("10^ " + kvp.Key + " : " + kvp.Value);
+            if (kvp.Value.Length > max)
+            {
+                maxKey = kvp.Key;
+            }
         }
+
+        Debug.Log("Key value with longest string is: " + maxKey + " with value " + placeLogValues[maxKey]);
     }
 
     public static GameLogic Instance()
