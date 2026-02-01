@@ -22,7 +22,7 @@ public class BuildingManager : MonoBehaviour
         SetButtonState(sellButton, false); 
     }
 
-    public BuildingManager GetInstance()
+    public static BuildingManager GetInstance()
     {
         return instance;
     }
@@ -87,6 +87,17 @@ public class BuildingManager : MonoBehaviour
         }
 
         return buildingStates[building].numOfBuildings;
+    }
+
+    public void LogLib()
+    {
+        foreach (var kvp in buildingStates)
+        {
+            var key = kvp.Key;
+            var value = kvp.Value;
+
+            Debug.Log($"{key}: {value}");
+        }
     }
 
 

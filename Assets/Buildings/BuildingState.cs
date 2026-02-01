@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 [System.Serializable]
 public class BuildingState 
 {
@@ -8,11 +7,10 @@ public class BuildingState
     public double currCost;
     private int efficiencyLevel; // how many times to multiply (baseCost * 2)
     private double baseMPS;
-    public double currMPS;
+    public bool unlocked;
 
     public BuildingState(Building building)
     {
-        this.numOfBuildings = 0;
         this.currCost = building.baseCost;
         this.baseMPS = building.baseMPS;
     }
@@ -28,6 +26,16 @@ public class BuildingState
         }
 
         return temp;
+    }
+
+    public void SetEffLevel(int n)
+    {
+        this.efficiencyLevel = n;
+    }
+
+    public int GetEffLevel()
+    {
+        return efficiencyLevel;
     }
 
 

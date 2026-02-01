@@ -5,15 +5,17 @@ using UnityEngine.UI;
 
 public class BuildingButtonsManager : MonoBehaviour
 {
-    [SerializeField] private Building[] buildings;
+    public Building[] buildings;
     public int buildingCount;
     public GameObject buildingButtonPrefab;
     public float yOffset;
     private List<GameObject> buttons = new List<GameObject>();
     public int displayCount;
+    public static BuildingButtonsManager instance;
 
     private void Awake()
     {
+        instance = this;
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -29,12 +31,15 @@ public class BuildingButtonsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         // out of bounds error, fine for NOOOW but gotta fix it
         if (GameLogic.instance.moneyCount >= buildings[displayCount-1].baseCost && displayCount < buildings.Length)
         {
             displayCount += 2;
             DisplayButtons();
         }
+        DisplayButtons();
     }
 
     // note I should update this so when it's called to enable buttons, it only goes through the ones that NEED to be enabled
@@ -56,6 +61,7 @@ public class BuildingButtonsManager : MonoBehaviour
             }
             else
             {
+                button.GetComponent<BuildingLogic>().SetBuilding(buildings[i]);
                 button.SetActive(false);
             }
 

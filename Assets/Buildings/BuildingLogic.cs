@@ -24,10 +24,10 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         
     }
 
-    
-
     private void Start()
     {
+        
+
         // this needs to be in start, so BuildingManager Instance can first be added
         try
         {
@@ -50,6 +50,9 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
+        this.buildingState = BuildingManager.instance.buildingStates[this.building];
+        reachedEnoughToBuy = buildingState.unlocked;
+
         currentBuildingCost = buildingState.currCost;
         SetButtonStates();
         UpdateButtonListeners();
@@ -57,6 +60,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         if (GameLogic.Instance().moneyCount >= this.building.baseCost && !reachedEnoughToBuy)
         {
             reachedEnoughToBuy = true;
+            buildingState.unlocked = true;
             gameObject.transform.Find("Image").GetComponent<Image>().color = Color.white;
         }
 
@@ -174,7 +178,9 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         {
             buildingNameText.text = "???";
             gameObject.transform.Find("Image").GetComponent<Image>().color = Color.black;
+            return;
         }
+        gameObject.transform.Find("Image").GetComponent<Image>().color = Color.white;
     }
 
     public void SetBuilding(Building b)

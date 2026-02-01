@@ -41,7 +41,7 @@ public class GameLogic : MonoBehaviour
         instance = this;
         //moneyCounter.text = FormatNumber(moneyCount)[0];
 
-        LogDictionary();
+        //LogDictionary();
     }
 
 
@@ -366,7 +366,7 @@ public class GameLogic : MonoBehaviour
             }
         }
 
-        Debug.Log("Key value with longest string is: " + maxKey + " with value " + placeLogValues[maxKey]);
+        //Debug.Log("Key value with longest string is: " + maxKey + " with value " + placeLogValues[maxKey]);
     }
 
     public static GameLogic Instance()

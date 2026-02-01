@@ -9,15 +9,11 @@ public class DropSpawner : MonoBehaviour
     public double chance;
     public int range;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
+
+
         chance = 1.0f / range;
         if (timer < cd)
         {
