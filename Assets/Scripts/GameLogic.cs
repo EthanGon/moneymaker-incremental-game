@@ -26,22 +26,19 @@ public class GameLogic : MonoBehaviour
     private double logVal;
 
     private float delayTimer;
-    public float delayTime;
-    public string[] units;
-    public string[] tens;
-    public string[] hundreds;
-    public List<string> names;
-    public int numValue;
+    [SerializeField] private float delayTime;
+    [SerializeField] private string[] units;
+    [SerializeField] private string[] tens;
+    [SerializeField] private string[] hundreds;
+    [SerializeField] private List<string> names; 
 
     private void Awake()
     {
+        instance = this;
         placeLogValues = new Dictionary<int, string>();
         InitPlaceValues();
         
-        instance = this;
-        //moneyCounter.text = FormatNumber(moneyCount)[0];
-
-        //LogDictionary();
+        
     }
 
 
@@ -67,8 +64,6 @@ public class GameLogic : MonoBehaviour
         
 
     }
-
-   
 
     public double GetMoneyAmount()
     {

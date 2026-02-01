@@ -50,6 +50,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
+        // doing this check every second to update building state, probably not the best idea but works, too lazy to make it better
         this.buildingState = BuildingManager.instance.buildingStates[this.building];
         reachedEnoughToBuy = buildingState.unlocked;
 

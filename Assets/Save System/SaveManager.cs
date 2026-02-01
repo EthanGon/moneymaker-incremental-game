@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -14,9 +15,8 @@ public class SaveManager : MonoBehaviour
 
     void Update()
     {
-        // attempts to load data, incase things dont load correctly (cuz something tried to load before it can) try again
-        
-        if (!dataLoaded)
+        // attempts to load data, incase things dont load correctly try again
+        if (!dataLoaded && File.Exists(Application.persistentDataPath + "/player.save"))
         {
             try
             {
