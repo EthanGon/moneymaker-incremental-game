@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
-    public AchievementManager instance;
+    public static AchievementManager instance;
     public List<Achievement> achievements;
+    public int numAchievements;
+    public int achievementsUnlocked;
 
     private void Awake()
     {
@@ -17,8 +19,9 @@ public class AchievementManager : MonoBehaviour
     public void CreateAchievements()
     {
         achievements = new List<Achievement>();
-
         achievements.Add(new Achievement("The Beginning", "Earn your first dollar", (object o) => GameLogic.instance.moneyCount >= 1));
+
+        numAchievements = achievements.Count;
     }
 
     

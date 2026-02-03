@@ -62,6 +62,12 @@ public class SaveManager : MonoBehaviour
             BuildingManager.GetInstance().buildingStates[BuildingButtonsManager.instance.buildings[i]] = dataToLoad.buildingStatesSaved[i];
         }
 
+        // Load achievement data
+        for (int i = 0; i < AchievementManager.instance.achievements.Count; i++)
+        {
+            AchievementManager.instance.achievements[i].unlocked = dataToLoad.achievementStateSaved[i];
+        }
+
         dataLoaded = true;
     }
 
