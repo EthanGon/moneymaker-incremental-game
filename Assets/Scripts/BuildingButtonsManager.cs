@@ -12,10 +12,12 @@ public class BuildingButtonsManager : MonoBehaviour
     private List<GameObject> buttons = new List<GameObject>();
     public int displayCount;
     public static BuildingButtonsManager instance;
+    private RectTransform rect;
 
     private void Awake()
     {
         instance = this;
+        rect = GetComponent<RectTransform>();
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -31,7 +33,8 @@ public class BuildingButtonsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        // updates how much the player can scroll down based on display count
+        rect.sizeDelta = new Vector2(0, displayCount * 125);
 
         // out of bounds error, fine for NOOOW but gotta fix it
         if (GameLogic.instance.moneyCount >= buildings[displayCount-1].baseCost && displayCount < buildings.Length)

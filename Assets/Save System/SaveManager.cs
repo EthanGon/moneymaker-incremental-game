@@ -37,6 +37,10 @@ public class SaveManager : MonoBehaviour
             SaveSystem.SavePlayer();
         }
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(LoadGame());
+        }
         
 
 
