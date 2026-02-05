@@ -16,18 +16,25 @@ public class PlayerData
         achievementStateSaved = new bool[AchievementManager.instance.achievements.Count];
 
         moneyCountSaved = GameLogic.Instance().moneyCount;
+        SaveBuildingStates();
+        SaveAchievementData();
+    }
 
-
-        buttonDisplayCountSaved = BuildingButtonsManager.instance.displayCount;
-        for (int i = 0; i < BuildingButtonsManager.instance.displayCount;  i++)
-        {
-            buildingStatesSaved[i] = BuildingManager.GetInstance().buildingStates[BuildingButtonsManager.instance.buildings[i]];
-        }
-
+    public void SaveAchievementData()
+    {
         // save achievements
         for (int i = 0; i < AchievementManager.instance.achievements.Count; i++)
         {
             achievementStateSaved[i] = AchievementManager.instance.achievements[i].unlocked;
+        }
+    }
+
+    public void SaveBuildingStates()
+    {
+        buttonDisplayCountSaved = BuildingButtonsManager.instance.displayCount;
+        for (int i = 0; i < BuildingButtonsManager.instance.displayCount; i++)
+        {
+            buildingStatesSaved[i] = BuildingManager.GetInstance().buildingStates[BuildingButtonsManager.instance.buildings[i]];
         }
     }
 

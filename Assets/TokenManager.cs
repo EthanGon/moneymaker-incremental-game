@@ -1,5 +1,7 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TokenManager : MonoBehaviour
 {
@@ -8,12 +10,14 @@ public class TokenManager : MonoBehaviour
     private static TokenManager instance;
     public double currentXP;
     public double neededXP;
+    public Slider xpBar;
 
 
 
     private void Awake()
     {
         instance = this;
+        this.xpBar = GetComponent<Slider>();
     }
 
     public static TokenManager Instance()
@@ -31,8 +35,12 @@ public class TokenManager : MonoBehaviour
         if (currentXP >= neededXP)
         {
             tokenCount++;
+            currentXP = 0;
             neededXP = neededXP * 2;
         }
+
+        xpBar.maxValue = (float) neededXP;
+        xpBar.value = (float)currentXP;
     }
 
     public void DecreaseTokenCount()
