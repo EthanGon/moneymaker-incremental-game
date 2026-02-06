@@ -194,6 +194,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Right && reachedEnoughToBuy)
         {
             Debug.Log("Button was right clicked");
+            UpgradeWindow.Instance().ShowPanel();
             UpgradeWindow.Instance().SetSelectedBuilding(building);
         }
     }

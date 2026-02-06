@@ -8,16 +8,29 @@ public class UpgradeWindow : MonoBehaviour
     public TextMeshProUGUI buildingCurrMPS;
     public TextMeshProUGUI effCost;
     private static UpgradeWindow instance;
+    private GameObject panel;
 
 
     private void Awake()
     {
         instance = this;
+        panel = gameObject.transform.GetChild(0).gameObject;
+        panel.SetActive(false);
     }
 
     public static UpgradeWindow Instance()
     {
         return instance;
+    }
+
+    public void ShowPanel()
+    {
+        panel.SetActive(true);
+    }
+
+    public void ClosePanel()
+    {
+        panel.SetActive(false);
     }
 
     public void UpgradeEffLevel()
