@@ -7,6 +7,7 @@ public class TokenManager : MonoBehaviour
 {
     [SerializeField] private int tokenCount;
     [SerializeField] private TextMeshProUGUI xpText;
+    [SerializeField] private TextMeshProUGUI tokenCountText;
     private static TokenManager instance;
     public double currentXP;
     public double neededXP;
@@ -17,6 +18,7 @@ public class TokenManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        tokenCountText.text = tokenCount.ToString();
         this.xpBar = GetComponent<Slider>();
     }
 
@@ -35,8 +37,9 @@ public class TokenManager : MonoBehaviour
         if (currentXP >= neededXP)
         {
             tokenCount++;
+            tokenCountText.text = tokenCount.ToString();
             currentXP = 0;
-            neededXP = neededXP * 2;
+            neededXP += (neededXP * .50f);
         }
 
         xpBar.maxValue = (float) neededXP;
@@ -46,10 +49,17 @@ public class TokenManager : MonoBehaviour
     public void DecreaseTokenCount()
     {
         tokenCount--;
+        tokenCountText.text = tokenCount.ToString();
     }
 
     public int GetTokenCount()
     {
         return tokenCount;
+    }
+
+    public void SetTokenCount(int count)
+    {
+        tokenCount = count;
+        tokenCountText.text = tokenCount.ToString();
     }
 }

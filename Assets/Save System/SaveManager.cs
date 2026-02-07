@@ -68,6 +68,10 @@ public class SaveManager : MonoBehaviour
             AchievementManager.instance.achievements[i].unlocked = dataToLoad.achievementStateSaved[i];
         }
 
+        TokenManager.Instance().SetTokenCount(dataToLoad.tokenCountSaved);
+        TokenManager.Instance().currentXP = dataToLoad.currentXPSaved;
+        TokenManager.Instance().neededXP = dataToLoad.currentXPNeededSaved;
+
         dataLoaded = true;
     }
 

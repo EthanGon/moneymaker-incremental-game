@@ -89,7 +89,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
             this.button.interactable = false;
         }
 
-        canvasGroup.alpha = this.button.IsInteractable() ? 1 : 0.85f;
+        canvasGroup.alpha = this.button.IsInteractable() ? 1 : 0.55f;
     }
 
     public void UpdateButtonListeners()

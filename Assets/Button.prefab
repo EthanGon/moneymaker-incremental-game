@@ -417,6 +417,7 @@ MonoBehaviour:
   buildingState:
     numOfBuildings: 0
     currCost: 0
+    unlocked: 0
   button: {fileID: 0}
   canvasGroup: {fileID: 0}
   buildingNameText: {fileID: 3822742761138643493}

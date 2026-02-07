@@ -8,6 +8,8 @@ public class PlayerData
     public BuildingState[] buildingStatesSaved;
     public bool[] achievementStateSaved;
     public int buttonDisplayCountSaved;
+    public int tokenCountSaved;
+    public double currentXPSaved, currentXPNeededSaved;
     
 
     public PlayerData()
@@ -16,6 +18,11 @@ public class PlayerData
         achievementStateSaved = new bool[AchievementManager.instance.achievements.Count];
 
         moneyCountSaved = GameLogic.Instance().moneyCount;
+
+        tokenCountSaved = TokenManager.Instance().GetTokenCount();
+        currentXPSaved = TokenManager.Instance().currentXP;
+        currentXPNeededSaved = TokenManager.Instance().neededXP;
+
         SaveBuildingStates();
         SaveAchievementData();
     }
