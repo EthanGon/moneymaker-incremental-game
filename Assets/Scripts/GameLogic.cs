@@ -187,6 +187,7 @@ public class GameLogic : MonoBehaviour
         else
         {
             result = FormatNumber(moneyCount)[0] + "\n";
+            
         }
         
         numFormatted = result;

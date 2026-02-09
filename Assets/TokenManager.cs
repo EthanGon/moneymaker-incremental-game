@@ -30,20 +30,32 @@ public class TokenManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        xpText.text = currentXP.ToString("N0") + "/" + neededXP.ToString("N0");
-        xpText.text = GameLogic.Instance().FormatNumber(currentXP)[0] + " " + GameLogic.Instance().FormatNumber(currentXP)[1] + " / " 
-            + GameLogic.Instance().FormatNumber(neededXP)[0] + " " + GameLogic.Instance().FormatNumber(neededXP)[1];
         
+        DisplayXP();
         if (currentXP >= neededXP)
         {
             tokenCount++;
             tokenCountText.text = tokenCount.ToString();
             currentXP = 0;
-            neededXP += (neededXP * .50f);
+            neededXP = neededXP * 2;
         }
 
         xpBar.maxValue = (float) neededXP;
         xpBar.value = (float)currentXP;
+    }
+
+
+    // index0 is the number formatted, index1 is the name of the place value
+    public void DisplayXP()
+    {
+        string currentXPText = GameLogic.Instance().FormatNumber(currentXP)[0] + " " + GameLogic.Instance().FormatNumber(currentXP)[1];
+        string XPneededText  = GameLogic.Instance().FormatNumber(neededXP)[0]  + " " + GameLogic.Instance().FormatNumber(neededXP)[1];
+
+        xpText.text = currentXPText + " / " + XPneededText;
+
+        ////xpText.text = currentXP.ToString("N0") + "/" + neededXP.ToString("N0");
+        //xpText.text = GameLogic.Instance().FormatNumber(currentXP)[0] + " " + GameLogic.Instance().FormatNumber(currentXP)[1] + " / " 
+        //    + GameLogic.Instance().FormatNumber(neededXP)[0] + " " + GameLogic.Instance().FormatNumber(neededXP)[1];
     }
 
     public void DecreaseTokenCount()

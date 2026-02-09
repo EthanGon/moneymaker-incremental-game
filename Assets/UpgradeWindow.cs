@@ -35,14 +35,14 @@ public class UpgradeWindow : MonoBehaviour
 
     public void UpgradeEffLevel()
     {
-        int upgradeCost = (int) Mathf.Pow(2, BuildingManager.instance.buildingStates[selectedBuilding].GetEffLevel());
+        int upgradeCost = 1;
 
         if (TokenManager.Instance().GetTokenCount() > 0 && TokenManager.Instance().GetTokenCount() >= upgradeCost)
         {
             Debug.Log("Eff Level Increased");
             BuildingManager.instance.buildingStates[selectedBuilding].IncreaseEffLevel();
             buildingCurrMPS.text = "Mps: " + BuildingManager.instance.buildingStates[selectedBuilding].GetCurrMPS();
-            effCost.text = "cost: " + (int)Mathf.Pow(2, BuildingManager.instance.buildingStates[selectedBuilding].GetEffLevel()); 
+            effCost.text = "cost: " + 1; 
             TokenManager.Instance().DecreaseTokenCount();
         }
     }
