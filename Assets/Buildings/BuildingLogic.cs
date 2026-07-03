@@ -57,15 +57,32 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         currentBuildingCost = buildingState.currCost;
         SetButtonStates();
         UpdateButtonListeners();
+        CheckBuyAvailability();
 
+        
+
+        if (buildingState.GetEffLevel() < buildingState.upgradeChecker.Length)
+        {
+            if (buildingState.numOfBuildings >= buildingState.upgradeChecker[buildingState.upgradeRequirementReached])
+            {
+                buildingState.IncreaseUpgradeTokens();
+                buildingState.upgradeRequirementReached++;
+                UpgradeWindow.Instance().SetSelectedBuilding(building);
+            }
+        }
+        
+
+
+    }
+
+    public void CheckBuyAvailability()
+    {
         if (GameLogic.Instance().moneyCount >= this.building.baseCost && !reachedEnoughToBuy)
         {
             reachedEnoughToBuy = true;
             buildingState.unlocked = true;
             gameObject.transform.Find("Image").GetComponent<Image>().color = Color.white;
         }
-
-
     }
 
     public void SetButtonStates()
@@ -191,9 +208,8 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right && reachedEnoughToBuy)
+        if (eventData.button == PointerEventData.InputButton.Left && reachedEnoughToBuy)
         {
-            Debug.Log("Button was right clicked");
             UpgradeWindow.Instance().ShowPanel();
             UpgradeWindow.Instance().SetSelectedBuilding(building);
         }

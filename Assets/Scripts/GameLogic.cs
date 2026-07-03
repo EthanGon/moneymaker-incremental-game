@@ -17,7 +17,6 @@ public class GameLogic : MonoBehaviour
     public double moneyCount;
     public double moneyPerSec;
     public double moneyPerMin;
-    public int levelTokens;
 
     [Header("Values")]
     public string[] placeValues;
@@ -73,7 +72,6 @@ public class GameLogic : MonoBehaviour
     public void AddMoney(double mps)
     {
         moneyCount += mps * Time.deltaTime;
-        TokenManager.Instance().currentXP += mps * Time.deltaTime; 
         DisplayMoneyCount();
     }
 
@@ -81,7 +79,6 @@ public class GameLogic : MonoBehaviour
     public void MoneyClick()
     {
         moneyCount++;
-        TokenManager.Instance().currentXP++;
         DisplayMoneyCount();
     }
 
@@ -130,6 +127,7 @@ public class GameLogic : MonoBehaviour
 
             try
             {
+
                 result[0] = formatted.ToString("F3");
                 result[1] = placeLogValues[(int)tenthPower].ToLower();
             }
@@ -143,6 +141,7 @@ public class GameLogic : MonoBehaviour
         else // moneyCount < 1,000,000
         {
             double mon = moneyToFormat;
+            mon = Math.Floor(mon);
 
             // fixes the mps rounding up if I specify if the argument passed is the mps
             if (moneyToFormat == moneyPerSec)

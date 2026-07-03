@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeWindow : MonoBehaviour
 {
-    public Building selectedBuilding;
-    public TextMeshProUGUI nameOfBuildingSelected;
-    public TextMeshProUGUI buildingCurrMPS;
-    public TextMeshProUGUI effCost;
+    [SerializeField] private Building selectedBuilding;
+    [SerializeField] private TextMeshProUGUI nameOfBuildingSelected;
+    [SerializeField] private TextMeshProUGUI buildingCurrMPS;
+    [SerializeField] private TextMeshProUGUI buldingLevel;
+    [SerializeField] private TextMeshProUGUI buildingUpgradeTokens;
+    [SerializeField] private Button upgradeButton;
     private static UpgradeWindow instance;
     private GameObject panel;
 
@@ -35,26 +38,53 @@ public class UpgradeWindow : MonoBehaviour
 
     public void UpgradeEffLevel()
     {
-        int upgradeCost = 1;
-
-        if (TokenManager.Instance().GetTokenCount() > 0 && TokenManager.Instance().GetTokenCount() >= upgradeCost)
+        if (BuildingManager.instance.buildingStates[selectedBuilding].availableUpgrades > 0)
         {
             Debug.Log("Eff Level Increased");
             BuildingManager.instance.buildingStates[selectedBuilding].IncreaseEffLevel();
-            buildingCurrMPS.text = "Mps: " + BuildingManager.instance.buildingStates[selectedBuilding].GetCurrMPS();
-            effCost.text = "cost: " + 1; 
-            TokenManager.Instance().DecreaseTokenCount();
+            BuildingManager.instance.buildingStates[selectedBuilding].RemoveUpgradeToken();
+            SetSelectedBuilding(selectedBuilding);
+            
+             
+        }
+
+
+    }
+
+    public void HandleUpgradeButtonState()
+    {
+        if (BuildingManager.instance.buildingStates[selectedBuilding].availableUpgrades > 0)
+        {
+            EnableUpgradeButton();
+        }
+        else
+        {
+            DisableUpgradeButton();
         }
     }
   
 
     public void SetSelectedBuilding(Building b)
     {
+        BuildingManager bm = BuildingManager.GetInstance();
+
         this.selectedBuilding = b;
-        int upgradeCost = (int)Mathf.Pow(2, BuildingManager.instance.buildingStates[selectedBuilding].GetEffLevel());
-        nameOfBuildingSelected.text = b.buildingName;
-        effCost.text = "cost: " + upgradeCost;
-        buildingCurrMPS.text = "Mps: " + BuildingManager.instance.buildingStates[b].GetCurrMPS();
+        int upgradeCost = (int)Mathf.Pow(2, bm.buildingStates[selectedBuilding].GetEffLevel());
+        nameOfBuildingSelected.text = "[" + b.buildingName + "]";
+        buildingCurrMPS.text = "Mps: " + bm.buildingStates[b].GetCurrMPS();
+        buldingLevel.text = "Level: " + bm.buildingStates[b].GetEffLevel();
+        buildingUpgradeTokens.text = "Upgrade Tokens: " + bm.buildingStates[b].availableUpgrades;
+        HandleUpgradeButtonState();
+    }
+
+    public void EnableUpgradeButton()
+    {
+        upgradeButton.interactable = true;
+    }
+
+    public void DisableUpgradeButton()
+    {
+        upgradeButton.interactable = false;
     }
 
 

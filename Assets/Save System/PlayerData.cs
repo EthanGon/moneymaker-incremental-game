@@ -19,9 +19,6 @@ public class PlayerData
 
         moneyCountSaved = GameLogic.Instance().moneyCount;
 
-        tokenCountSaved = TokenManager.Instance().GetTokenCount();
-        currentXPSaved = TokenManager.Instance().currentXP;
-        currentXPNeededSaved = TokenManager.Instance().neededXP;
 
         SaveBuildingStates();
         SaveAchievementData();
