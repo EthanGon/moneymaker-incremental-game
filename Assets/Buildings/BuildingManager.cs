@@ -100,6 +100,16 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    public bool InBuildingState(Building building)
+    {
+        if (buildingStates.ContainsKey(building))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     
 
 

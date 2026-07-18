@@ -9,7 +9,7 @@ public class BuildingButtonsManager : MonoBehaviour
     public int buildingCount;
     public GameObject buildingButtonPrefab;
     public float yOffset;
-    private List<GameObject> buttons = new List<GameObject>();
+    public List<GameObject> buttons = new List<GameObject>();
     public int displayCount;
     public static BuildingButtonsManager instance;
     private RectTransform rect;
@@ -69,5 +69,22 @@ public class BuildingButtonsManager : MonoBehaviour
             }
 
         }
+    }
+
+    public BuildingState GetButtonBuildingState(int index)
+    {
+        if (index < 0 || index > buttons.Count)
+        {
+            Debug.Log("wrong index");
+            return null;
+        }
+
+        return buttons[index].GetComponent<BuildingState>();
+    }
+
+    public int NumBuildings()
+    {
+        Debug.Log("num building: " + buildings.Length);
+        return buildings.Length;
     }
 }

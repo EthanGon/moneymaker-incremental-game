@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,12 +22,16 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
     { 
         this.button = this.GetComponent<Button>();
         this.canvasGroup = this.GetComponent<CanvasGroup>();
-        
+
+       
+
     }
+
+   
 
     private void Start()
     {
-        
+
 
         // this needs to be in start, so BuildingManager Instance can first be added
         try
@@ -41,7 +46,9 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
             Debug.Log(BuildingManager.instance.name);
         }
 
-       
+
+
+
 
         this.buildingState = BuildingManager.instance.buildingStates[this.building];
         DisplayBuildingDetails();

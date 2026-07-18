@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+
 
 public class AchievementManager : MonoBehaviour
 {
@@ -41,17 +44,81 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new Achievement("Lucky number 7", "Have $20 in your bank.", (object o) => GameLogic.instance.moneyCount >= 20));
         achievements.Add(new Achievement("Five Zero", "Have $50 in your bank.", (object o) => GameLogic.instance.moneyCount >= 50));
         achievements.Add(new Achievement("Benjiiiii", "Have $100 in your bank.", (object o) => GameLogic.instance.moneyCount >= 100));
+        Invoke(nameof(CreateOwnedBuildingMilestones), 1.5f);
 
         numAchievements = achievements.Count;
     }
 
     
-    private void Update()
+    private void CreateOwnedBuildingMilestones()
     {
-        CheckAchievementCompletion();
+        int numOfMilestones = 5;
+        int numOfScale = 1;
+        BuildingButtonsManager bbm = BuildingButtonsManager.instance;
+        BuildingManager bm = BuildingManager.instance;
+
+
+        foreach (var building in bm.buildingStates)
+        {
+            Debug.Log("bm name " + building.Key.buildingName);
+            for (int i = 0; i < numOfMilestones; i++)
+            {
+                int numNeeded = (i + 1) * numOfScale;
+                string achievementName = "X" + numNeeded + " " + building.Key.buildingName;
+                string achievementDescription = "Own " + numNeeded + " " + building.Key.buildingName + " Buildings.";
+                achievements.Add(new Achievement(achievementName, achievementDescription, (object o) => CheckCond(building.Key, numNeeded)));
+            }
+        }
+
+
+
+
+    }
+
+    public bool CheckCond(Building key, int numReq)
+    {
+        BuildingManager bm = BuildingManager.instance;
+
+        if (!bm.buildingStates.ContainsKey(key))
+        {
+            return false;
+        }
 
         
 
+        return bm.buildingStates[key].numOfBuildings >= numReq;
+    }
+    
+
+   
+    
+    private void Update()
+    {
+        CheckAchievementCompletion();
+        RemoveRecentUnlockFromUI();
+        DisplayRecentAchievements();
+
+   
+
+    }
+
+    private void DisplayRecentAchievements()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            popUpsHolder[i].SetActive(false);
+        }
+
+        for (int i = 0; i < recentAchievements.Count; i++)
+        {
+            popUpsHolder[i].SetActive(true);
+            popUpsHolder[i].GetComponentsInChildren<TextMeshProUGUI>()[0].text = "[" + recentAchievements[i].name + "]";
+            popUpsHolder[i].GetComponentsInChildren<TextMeshProUGUI>()[1].text = "> " + recentAchievements[i].description;
+        }
+    }
+
+    private void RemoveRecentUnlockFromUI()
+    {
         if (recentAchievements.Count > 0)
         {
             if (timer < maxTimeOnScreen)
@@ -63,27 +130,11 @@ public class AchievementManager : MonoBehaviour
                 recentAchievements.RemoveAt(0);
                 timer = 0;
             }
-        } 
+        }
         else
         {
             timer = 0;
         }
-
-        for (int i = 0; i < 4; i++)
-        {
-            popUpsHolder[i].SetActive(false);
-        }
-
-        for (int i = 0; i < recentAchievements.Count; i++)
-        {
-            popUpsHolder[i].SetActive(true);
-            popUpsHolder[i].GetComponentsInChildren<TextMeshProUGUI>()[0].text = "[" + recentAchievements[i].name + "]";
-            popUpsHolder[i].GetComponentsInChildren<TextMeshProUGUI>()[1].text = "> " +  recentAchievements[i].description;
-        }
-
-        
-
-       
     }
 
     private void CheckAchievementCompletion()
