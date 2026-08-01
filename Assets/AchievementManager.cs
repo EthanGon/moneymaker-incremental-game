@@ -44,7 +44,14 @@ public class AchievementManager : MonoBehaviour
         achievements.Add(new Achievement("Lucky number 7", "Have $20 in your bank.", (object o) => GameLogic.instance.moneyCount >= 20));
         achievements.Add(new Achievement("Five Zero", "Have $50 in your bank.", (object o) => GameLogic.instance.moneyCount >= 50));
         achievements.Add(new Achievement("Benjiiiii", "Have $100 in your bank.", (object o) => GameLogic.instance.moneyCount >= 100));
-        Invoke(nameof(CreateOwnedBuildingMilestones), 1.5f);
+        achievements.Add(new Achievement("GRAND Opening.. Get it?", "Have $1000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 1000));
+        achievements.Add(new Achievement("It's over 9000!", "Have $9000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 9000));
+        achievements.Add(new Achievement("Brick or Crash?", "Have $10,000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 10000));
+        achievements.Add(new Achievement("Money Grinder", "Have $53,594 in your bank.", (object o) => GameLogic.instance.moneyCount >= 53594));
+        achievements.Add(new Achievement("Enough cash to feed a ghost town", "Have $50,000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 50000));
+        achievements.Add(new Achievement("186A0", "Have $100,000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 100000));
+        achievements.Add(new Achievement("A Small Loan..", "Have $1,000,000 in your bank.", (object o) => GameLogic.instance.moneyCount >= 1000000));
+        Invoke(nameof(CreateOwnedBuildingMilestones), 0);
 
         numAchievements = achievements.Count;
     }
@@ -53,25 +60,20 @@ public class AchievementManager : MonoBehaviour
     private void CreateOwnedBuildingMilestones()
     {
         int numOfMilestones = 5;
-        int numOfScale = 1;
+        int numOfScale = 100;
         BuildingButtonsManager bbm = BuildingButtonsManager.instance;
         BuildingManager bm = BuildingManager.instance;
 
-
-        foreach (var building in bm.buildingStates)
+        foreach (var buildingButton in bbm.buttons)
         {
-            Debug.Log("bm name " + building.Key.buildingName);
             for (int i = 0; i < numOfMilestones; i++)
             {
                 int numNeeded = (i + 1) * numOfScale;
-                string achievementName = "X" + numNeeded + " " + building.Key.buildingName;
-                string achievementDescription = "Own " + numNeeded + " " + building.Key.buildingName + " Buildings.";
-                achievements.Add(new Achievement(achievementName, achievementDescription, (object o) => CheckCond(building.Key, numNeeded)));
+                string achievementName = "x" + numNeeded + " " + buildingButton.GetComponent<BuildingLogic>().building.buildingName;
+                string achievementDescription = "Own " + numNeeded + " " + buildingButton.GetComponent<BuildingLogic>().building.buildingName + " Buildings.";
+                achievements.Add(new Achievement(achievementName, achievementDescription, (object o) => CheckCond(buildingButton.GetComponent<BuildingLogic>().building, numNeeded)));
             }
         }
-
-
-
 
     }
 

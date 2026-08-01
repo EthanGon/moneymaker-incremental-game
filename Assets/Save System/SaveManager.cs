@@ -18,6 +18,8 @@ public class SaveManager : MonoBehaviour
         // attempts to load data, incase things dont load correctly try again
         if (!dataLoaded && File.Exists(Application.persistentDataPath + "/player.save"))
         {
+            LoadingScreen.GetInstance().TurnOn();
+
             try
             {
                 StartCoroutine(LoadGame());
@@ -27,7 +29,8 @@ public class SaveManager : MonoBehaviour
                 Debug.LogWarning(e.Message + ".. Data failed to load trying again...");
                 return;
             }
-        }
+        } 
+        
         
 
 
@@ -50,8 +53,7 @@ public class SaveManager : MonoBehaviour
 
     public IEnumerator LoadGame()
     {
-        yield return new WaitForSeconds(0);
-
+        
         PlayerData dataToLoad = SaveSystem.LoadPlayer();
         GameLogic.Instance().moneyCount = dataToLoad.moneyCountSaved;
 
@@ -69,6 +71,10 @@ public class SaveManager : MonoBehaviour
         }
 
         dataLoaded = true;
+        yield return new WaitForSeconds(2.0f);
+
     }
+
+    
 
 }

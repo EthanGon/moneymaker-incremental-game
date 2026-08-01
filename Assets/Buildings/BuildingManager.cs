@@ -40,6 +40,11 @@ public class BuildingManager : MonoBehaviour
             totalMPS += state.GetCurrMPS() * state.numOfBuildings;
         }
 
+        if (BuffManager.Instance().DoubleMPSActive())
+        {
+            return totalMPS *= 2;
+        }
+
         return totalMPS;
     }
 

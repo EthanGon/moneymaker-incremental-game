@@ -3,21 +3,22 @@ using UnityEngine.EventSystems;
 
 public class Drop : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] private bool hasPowerUp;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clicked Drop");
+        if (hasPowerUp)
+        {
+            BuffManager.Instance().GivePlayerPowerUp();
+        }
         Destroy(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void GivePowerUp()
     {
-        
+        hasPowerUp = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    
 }

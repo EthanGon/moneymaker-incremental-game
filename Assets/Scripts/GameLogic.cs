@@ -78,7 +78,16 @@ public class GameLogic : MonoBehaviour
 
     public void MoneyClick()
     {
-        moneyCount++;
+        
+        if (BuffManager.Instance().IsBuffActive("SuperClick"))
+        {
+            moneyCount += moneyPerMin;
+        }
+        else
+        {
+            moneyCount++;
+        }
+
         DisplayMoneyCount();
     }
 
@@ -141,13 +150,14 @@ public class GameLogic : MonoBehaviour
         else // moneyCount < 1,000,000
         {
             double mon = moneyToFormat;
-            mon = Math.Floor(mon);
+            //mon = Math.Floor(mon);
 
             // fixes the mps rounding up if I specify if the argument passed is the mps
             if (moneyToFormat == moneyPerSec)
             {
                 if (moneyToFormat == 0)
                 {
+                    Debug.Log("b1");
                     result[0] = mon.ToString("F0");
                 }
                 else
@@ -162,12 +172,14 @@ public class GameLogic : MonoBehaviour
                     {
                         result[0] = mon.ToString("N0");
                     }
+                    
                 }
                     
             }
             else
             {
                 result[0] = mon.ToString("N0");
+                
             }
   
         }

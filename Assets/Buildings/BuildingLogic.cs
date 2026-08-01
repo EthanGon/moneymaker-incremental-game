@@ -62,6 +62,10 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         reachedEnoughToBuy = buildingState.unlocked;
 
         currentBuildingCost = buildingState.currCost;
+
+
+
+
         SetButtonStates();
         UpdateButtonListeners();
         CheckBuyAvailability();
@@ -103,6 +107,8 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         {
             this.button.interactable = false;
         }
+
+
 
         if (this.buildingState.numOfBuildings > 0 && BuildingManager.instance.tradeState == BuildingManager.tradeOptions.sell)
         {
@@ -167,6 +173,8 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         double cost = 0;
 
         cost = this.building.baseCost * Math.Ceiling(Math.Pow(1.15, numBuildings));
+
+        
 
         return cost;
     }

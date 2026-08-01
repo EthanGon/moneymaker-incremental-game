@@ -14,6 +14,7 @@ public class BuildingState
     public int scaleAmount = 20; // every x amount of buildings, u can upgrade it
     public int availableUpgrades = 0;
     public int upgradeRequirementReached = 0;
+    public bool priceHalved;
 
     public BuildingState(Building building)
     {
@@ -47,6 +48,7 @@ public class BuildingState
             temp = temp * 2;
         }
 
+
         return temp;
     }
 
@@ -76,5 +78,8 @@ public class BuildingState
         this.availableUpgrades--;
     }
 
-   
+    
+
+
+
 }
