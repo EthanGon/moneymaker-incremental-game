@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class BuffManager : MonoBehaviour
 {
+    private static BuffManager instance;
     [SerializeField] private List<Buff> buffs;
     [SerializeField] private bool doubleMoneyActive;
     [SerializeField] private int numBuffsActive;
-    private static BuffManager instance;
+    [SerializeField] private int maxBuffs;
     public GameObject[] buffStatusUI;
     public List<Buff> activeBuff;
    
@@ -39,10 +40,13 @@ public class BuffManager : MonoBehaviour
         }
         else
         {
-            buffToGive.buffCurrDurection = 0f;
-            buffToGive.isActive = true;
-            activeBuff.Add(buffToGive);
-            buffStatusUI[activeBuff.Count - 1].GetComponent<BuffStatus>().AddBuff(buffToGive);
+            if (activeBuff.Count != maxBuffs)
+            {
+                buffToGive.buffCurrDurection = 0f;
+                buffToGive.isActive = true;
+                activeBuff.Add(buffToGive);
+                buffStatusUI[activeBuff.Count - 1].GetComponent<BuffStatus>().AddBuff(buffToGive);
+            }
         }
     }
 
@@ -56,9 +60,9 @@ public class BuffManager : MonoBehaviour
             buffStatusUI[i].GetComponent<BuffStatus>().UpdateUI(activeBuff[i]);
         }
 
-        if (activeBuff.Count != 3)
+        if (activeBuff.Count != maxBuffs)
         {
-            for (int i = activeBuff.Count; i < 3; i++)
+            for (int i = activeBuff.Count; i < maxBuffs; i++)
             {
                 buffStatusUI[i].GetComponent<BuffStatus>().assignedBuff = null;
                 buffStatusUI[i].SetActive(false);
@@ -83,7 +87,6 @@ public class BuffManager : MonoBehaviour
             {
                 return true;
             }
-
         }
 
         return false;

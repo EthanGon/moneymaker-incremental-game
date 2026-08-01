@@ -32,6 +32,10 @@ public class DropSpawner : MonoBehaviour
 
             timer = 0;
         }
+
+
+
+
     }
 
 
