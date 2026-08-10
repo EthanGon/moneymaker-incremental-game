@@ -15,5 +15,5 @@ MonoBehaviour:
   buffName: 2X MPS
   buffDescription: Money Per Second is now doubled!
   buffMaxDuration: 60
-  buffCurrDurection: 46.28097
-  isActive: 1
+  buffCurrDurection: 0
+  isActive: 0

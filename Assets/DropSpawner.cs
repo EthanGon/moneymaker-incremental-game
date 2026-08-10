@@ -14,6 +14,10 @@ public class DropSpawner : MonoBehaviour
     public double powerUpDropChance;
     public double dropChance;
 
+    [Header("Money Rain Handler")]
+    [SerializeField] private float moneyRainDelay;
+    [SerializeField] private float moneyRainDropTimer;
+
     // Update is called once per frame
     void Update()
     {
@@ -33,9 +37,31 @@ public class DropSpawner : MonoBehaviour
             timer = 0;
         }
 
+        HandleMoneyRain();
+
+        
 
 
+    }
 
+    private void HandleMoneyRain()
+    {
+        if (BuffManager.Instance().IsBuffActive("MoneyRain"))
+        {
+            if (moneyRainDropTimer < moneyRainDelay)
+            {
+                moneyRainDropTimer += Time.deltaTime;
+            }
+            else
+            {
+                MoneyRainDrop();
+                moneyRainDropTimer = 0;
+            }
+        }
+        else
+        {
+            moneyRainDropTimer = 0;
+        }
     }
 
 
@@ -44,7 +70,7 @@ public class DropSpawner : MonoBehaviour
     {
         float randX = Random.Range(-850, 850);
         float randY = Random.Range(-450, 450);
-        Debug.Log("Spawned Drop Spawned at " + "(" + randX + "," + randY + ")");
+        //Debug.Log("Spawned Drop Spawned at " + "(" + randX + "," + randY + ")");
 
         GameObject newDrop = Instantiate(drop, Vector3.zero, Quaternion.identity);
 
@@ -56,5 +82,19 @@ public class DropSpawner : MonoBehaviour
 
         newDrop.transform.SetParent(transform, false);
         newDrop.transform.localPosition = new Vector3(randX, randY, 0);
+    }
+
+    private void MoneyRainDrop()
+    {
+        float randX = Random.Range(-850, 850);
+        float randY = Random.Range(-450, 450);
+        //Debug.Log("Spawned Drop Spawned at " + "(" + randX + "," + randY + ")");
+
+        GameObject newDrop = Instantiate(drop, Vector3.zero, Quaternion.identity);
+        newDrop.GetComponent<Drop>().SetAsMoneyRainDrop();
+
+        newDrop.transform.SetParent(transform, false);
+        newDrop.transform.localPosition = new Vector3(randX, randY, 0);
+
     }
 }

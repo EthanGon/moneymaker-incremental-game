@@ -81,8 +81,17 @@ public class GameLogic : MonoBehaviour
         
         if (BuffManager.Instance().IsBuffActive("SuperClick"))
         {
-            moneyCount += moneyPerMin;
-        }
+            if (moneyPerMin == 0f)
+            {
+                moneyCount++;
+            }
+            else
+            {
+                Debug.Log("SuperClick");
+                moneyCount += moneyPerMin;
+            }
+
+        } 
         else
         {
             moneyCount++;
@@ -157,7 +166,6 @@ public class GameLogic : MonoBehaviour
             {
                 if (moneyToFormat == 0)
                 {
-                    Debug.Log("b1");
                     result[0] = mon.ToString("F0");
                 }
                 else

@@ -7,9 +7,13 @@ public class PlayerData
     public double moneyCountSaved;
     public BuildingState[] buildingStatesSaved;
     public bool[] achievementStateSaved;
+    public Buff[] activeBuffsSaved;
     public int buttonDisplayCountSaved;
     public int tokenCountSaved;
     public double currentXPSaved, currentXPNeededSaved;
+
+    public string[] buffSaved;
+    public float[] buffDurationSaved;
     
 
     public PlayerData()
@@ -22,6 +26,7 @@ public class PlayerData
 
         SaveBuildingStates();
         SaveAchievementData();
+        SaveActiveBuffs();
     }
 
     public void SaveAchievementData()
@@ -40,6 +45,22 @@ public class PlayerData
         {
             buildingStatesSaved[i] = BuildingManager.GetInstance().buildingStates[BuildingButtonsManager.instance.buildings[i]];
         }
+    }
+
+    public void SaveActiveBuffs()
+    {
+        BuffManager bm = BuffManager.Instance();
+        int buffCount = bm.activeBuff.Count;
+
+        buffSaved = new string[buffCount];
+        buffDurationSaved = new float[buffCount];
+
+        for (int i = 0; i < buffCount; i++)
+        {
+            buffSaved[i] = bm.activeBuff[i].name;
+            buffDurationSaved[i] = bm.activeBuff[i].buffCurrDurection;
+        }
+
     }
 
     /* Things to save:

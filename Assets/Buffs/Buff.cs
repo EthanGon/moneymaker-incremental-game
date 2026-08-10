@@ -9,9 +9,10 @@ public class Buff : ScriptableObject
     public float buffCurrDurection;
     public bool isActive;
 
+
     public void ResetDurr()
     {
         buffCurrDurection = buffMaxDuration;
     }
-
+    
 }

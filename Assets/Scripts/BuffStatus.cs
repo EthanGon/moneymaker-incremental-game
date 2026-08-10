@@ -7,9 +7,8 @@ public class BuffStatus : MonoBehaviour
     public Slider slider;
     public Buff assignedBuff;
     public TextMeshProUGUI textMeshProUGUI;
+    public BuffState state;
 
-
-    // Update is called once per frame
     void Update()
     {
         if (assignedBuff != null)
@@ -38,6 +37,16 @@ public class BuffStatus : MonoBehaviour
         assignedBuff.buffCurrDurection = buff.buffMaxDuration;
         SetMaxDuration(buff.buffMaxDuration);
         SetDuration(buff.buffMaxDuration);
+    }
+
+    public void AddSavedBuff(Buff buff, float savedDuration)
+    {
+        this.gameObject.SetActive(true);
+        textMeshProUGUI.text = buff.name;
+        this.assignedBuff = buff;
+        assignedBuff.buffCurrDurection = savedDuration;
+        SetMaxDuration(buff.buffMaxDuration);
+        
     }
 
     public void SetMaxDuration(float maxDuration)

@@ -6,6 +6,8 @@ public static class SaveSystem
 {
     public static void SavePlayer()
     {
+        SaveManager.GetInstance().dataLoaded = true;
+
         BinaryFormatter formatter = new BinaryFormatter();
         string path = Application.persistentDataPath + "/player.save";
         Debug.Log(path);

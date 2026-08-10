@@ -1,11 +1,25 @@
 using System;
 using System.Collections;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
     public bool dataLoaded;
+    [Header("Money Rain Handler")]
+    [SerializeField] private float autoSaveTime;
+    [SerializeField] private float autoSaveTimer;
+    [SerializeField] private Animator autoSaveTextAnimation;
+    [SerializeField] private TextMeshProUGUI autoSaveText;
+
+    private static SaveManager instance;
+
+    private void Start()
+    {
+        instance = this;
+        
+    }
 
     private void Awake()
     {
@@ -15,7 +29,14 @@ public class SaveManager : MonoBehaviour
 
     void Update()
     {
-        // attempts to load data, incase things dont load correctly try again
+        LoadSaveAttempt();
+        HandleAutoSave();
+
+    }
+
+    private void LoadSaveAttempt()
+    {
+        // will constantly attempt to load save until everything is created
         if (!dataLoaded && File.Exists(Application.persistentDataPath + "/player.save"))
         {
             LoadingScreen.GetInstance().TurnOn();
@@ -29,24 +50,24 @@ public class SaveManager : MonoBehaviour
                 Debug.LogWarning(e.Message + ".. Data failed to load trying again...");
                 return;
             }
-        } 
-        
-        
 
+        }
+    }
 
-        if (Input.GetKeyDown(KeyCode.S))
+    private void HandleAutoSave()
+    {
+        if (autoSaveTimer < autoSaveTime)
         {
-            Debug.Log("Game Saved");
+            autoSaveTimer += Time.deltaTime;
+        }
+        else
+        {
+            autoSaveText.text = "Game Autosaved";
+            autoSaveTextAnimation.SetTrigger("fade");
+            Debug.Log("Autosave Triggered.");
             SaveSystem.SavePlayer();
+            autoSaveTimer = 0f;
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            StartCoroutine(LoadGame());
-        }
-        
-
-
     }
 
    
@@ -70,9 +91,22 @@ public class SaveManager : MonoBehaviour
             AchievementManager.instance.achievements[i].unlocked = dataToLoad.achievementStateSaved[i];
         }
 
-        dataLoaded = true;
-        yield return new WaitForSeconds(2.0f);
+        BuffManager bm = BuffManager.Instance();
+        bm.LoadSavedBuffs(dataToLoad.buffSaved, dataToLoad.buffDurationSaved);
 
+        
+        yield return new WaitForSeconds(2.5f);
+        dataLoaded = true;
+    }
+
+    public static SaveManager GetInstance()
+    {
+        return instance;
+    }
+
+    public void ShowAutoSaveText()
+    {
+        autoSaveText.gameObject.SetActive(true);
     }
 
     

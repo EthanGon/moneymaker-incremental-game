@@ -19,6 +19,7 @@ public class AchievementManager : MonoBehaviour
     public GameObject[] popUpsHolder;
     public float timer;
     public float maxTimeOnScreen;
+    public string selectedAchievement;
 
     private void Awake()
     {
@@ -37,10 +38,10 @@ public class AchievementManager : MonoBehaviour
         achievements = new List<Achievement>();
 
         // Achievement Based on Dollar Bills
-        achievements.Add(new Achievement("The Beginning.", "Earn your first dollar.", (object o) => GameLogic.instance.moneyCount >= 1));
-        achievements.Add(new Achievement("Good ol Tom.", "Have $2 in your bank.", (object o) => GameLogic.instance.moneyCount >= 2));
+        achievements.Add(new Achievement("The Beginning", "Earn your first dollar.", (object o) => GameLogic.instance.moneyCount >= 1));
+        achievements.Add(new Achievement("Good ol Tom", "Have $2 in your bank.", (object o) => GameLogic.instance.moneyCount >= 2));
         achievements.Add(new Achievement("He ain't got nothing on JWB!", "Have $5 in your bank.", (object o) => GameLogic.instance.moneyCount >= 5));
-        achievements.Add(new Achievement("If I can prove that I never touched my balls.", "Have $10 in your bank.", (object o) => GameLogic.instance.moneyCount >= 10));
+        achievements.Add(new Achievement("If I can prove that I never touched my balls", "Have $10 in your bank.", (object o) => GameLogic.instance.moneyCount >= 10));
         achievements.Add(new Achievement("Lucky number 7", "Have $20 in your bank.", (object o) => GameLogic.instance.moneyCount >= 20));
         achievements.Add(new Achievement("Five Zero", "Have $50 in your bank.", (object o) => GameLogic.instance.moneyCount >= 50));
         achievements.Add(new Achievement("Benjiiiii", "Have $100 in your bank.", (object o) => GameLogic.instance.moneyCount >= 100));
@@ -100,7 +101,12 @@ public class AchievementManager : MonoBehaviour
         RemoveRecentUnlockFromUI();
         DisplayRecentAchievements();
 
-   
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var ach = new Steamworks.Data.Achievement(selectedAchievement);
+            Debug.Log("Achievement ID: " + selectedAchievement + " was re-locked.");
+            ach.Clear();
+        }
 
     }
 
@@ -159,6 +165,8 @@ public class Achievement
     public string name;
     public string description;
     public bool unlocked;
+    public static int ID = 0;
+    public int ach_id;
     public Predicate<object> requirement;
   
 
@@ -167,6 +175,9 @@ public class Achievement
         this.name = name;
         this.description = description;
         this.requirement = requirement;
+        ach_id = ID;
+        ID++;
+
     }
 
     public void UpdateState()
@@ -189,8 +200,10 @@ public class Achievement
                 AchievementManager.instance.recentAchievements.Insert(0, this);
             }
 
-                Debug.Log($"{name}: {description}");
+            Debug.Log($"{name}: {description}");
+            UnlockAchievement(ach_id.ToString());
             this.unlocked = true;
+            
         }
     }
 
@@ -198,6 +211,26 @@ public class Achievement
     public bool ConditionMet()
     {
         return requirement.Invoke(null);
+    }
+
+
+    public void CheckUnlockState(string id)
+    {
+        var ach = new Steamworks.Data.Achievement(id);
+        Debug.Log($"Ach: {id}, status: " + ach.State);
+    }
+
+    public void UnlockAchievement(string id)
+    {
+        var ach = new Steamworks.Data.Achievement("ACH_" + id);
+        ach.Trigger();
+        Debug.Log($"Ach: {id}, status: " + ach.State);
+    }
+
+    public void ClearAchievement(string id)
+    {
+        var ach = new Steamworks.Data.Achievement(id);
+        ach.Clear();
     }
 
 }

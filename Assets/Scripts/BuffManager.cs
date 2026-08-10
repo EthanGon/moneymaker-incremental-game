@@ -6,8 +6,6 @@ public class BuffManager : MonoBehaviour
 {
     private static BuffManager instance;
     [SerializeField] private List<Buff> buffs;
-    [SerializeField] private bool doubleMoneyActive;
-    [SerializeField] private int numBuffsActive;
     [SerializeField] private int maxBuffs;
     public GameObject[] buffStatusUI;
     public List<Buff> activeBuff;
@@ -48,6 +46,24 @@ public class BuffManager : MonoBehaviour
                 buffStatusUI[activeBuff.Count - 1].GetComponent<BuffStatus>().AddBuff(buffToGive);
             }
         }
+    }
+
+    public void LoadSavedBuffs(string[] buffNames, float[] buffDurations)
+    {
+        activeBuff.Clear();
+
+        int buffsToLoad = buffNames.Length;
+
+        for (int i = 0; i < buffsToLoad; i++)
+        {
+            Buff currBuffToLoad = GetBuff(buffNames[i]);
+            currBuffToLoad.buffCurrDurection = buffDurations[i];
+            currBuffToLoad.isActive = true;
+            activeBuff.Add(currBuffToLoad);
+            buffStatusUI[activeBuff.Count - 1].GetComponent<BuffStatus>().AddSavedBuff(currBuffToLoad, buffDurations[i]);
+
+        }
+
     }
 
     public void RedoUI()
@@ -110,6 +126,24 @@ public class BuffManager : MonoBehaviour
         return false;
     }
 
+    public bool IsBuffActive(string buffName)
+    {
+        if (activeBuff.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (var buff in activeBuff)
+        {
+            if (buff.buffName.Equals(buffName))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void FindAndResetValue(Buff buffToReset)
     {
         foreach (var buff in buffStatusUI)
@@ -127,23 +161,22 @@ public class BuffManager : MonoBehaviour
        
     }
 
-    public bool IsBuffActive(string buffName)
-    {
-        if (activeBuff.Count == 0)
-        {
-            return false;
-        }
+    
 
-        foreach (var buff in activeBuff)
+    public Buff GetBuff(string buffName)
+    {
+        for (int i = 0; i < buffs.Count; i++)
         {
-            if (!buff.buffName.Equals(buffName))
+            if (buffs[i].name.Equals(buffName))
             {
-                return true;
+                return buffs[i];
             }
         }
 
-        return false;
+        return null;
     }
+
+    
 
    
 }
