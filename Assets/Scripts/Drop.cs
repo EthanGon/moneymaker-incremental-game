@@ -4,7 +4,21 @@ using UnityEngine.EventSystems;
 public class Drop : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private bool hasPowerUp;
+    [SerializeField] private float timeBeforeFade;
+    private float timer;
     private bool moneyRainDrop;
+    private Animator anim;
+    private bool fadeTriggered;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        HandleLifeSpan();
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -40,6 +54,7 @@ public class Drop : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        
         Destroy(gameObject);
     }
 
@@ -51,6 +66,31 @@ public class Drop : MonoBehaviour, IPointerClickHandler
     public void SetAsMoneyRainDrop()
     {
         moneyRainDrop = true;
+    }
+
+    private void HandleLifeSpan()
+    {
+        if (fadeTriggered)
+        {
+            return;
+        }
+
+        if (timer < timeBeforeFade)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            anim.SetTrigger("fade");
+            fadeTriggered = true;
+        }
+
+        
+    }
+
+    public void DeleteDrop()
+    {
+        Destroy(gameObject);
     }
     
     
