@@ -4,8 +4,8 @@ public class SteamIntegration : MonoBehaviour
 {
     private void Start()
     {
-        
 
+        
         try
         {
             Steamworks.SteamClient.Init(4413330);
@@ -16,7 +16,7 @@ public class SteamIntegration : MonoBehaviour
             Debug.Log(ex);
         }
         
-        
+
     }
 
     private void PrintSteamName()

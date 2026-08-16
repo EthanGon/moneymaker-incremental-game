@@ -15,3 +15,5 @@ MonoBehaviour:
   buildingName: GoldMine
   baseMPS: 1500
   baseCost: 1100000
+  normalBaseCost: 0
+  buildingIconn: {fileID: -4091240364723308270, guid: 58b94128238c3204e8351589c7a1c13a, type: 3}

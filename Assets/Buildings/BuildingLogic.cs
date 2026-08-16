@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 {
@@ -14,6 +17,9 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingAmountText;
     public TextMeshProUGUI buildingCostText;
+    public TextMeshProUGUI tokenAvailableText;
+
+    public Image icon;
     public double currentBuildingCost;
     public bool reachedEnoughToBuy;
 
@@ -31,7 +37,11 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-
+        if (this.building.buildingIconn != null)
+        {
+            icon.sprite = building.buildingIconn;
+        }
+        
 
         // this needs to be in start, so BuildingManager Instance can first be added
         try
@@ -69,7 +79,7 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         SetButtonStates();
         UpdateButtonListeners();
         CheckBuyAvailability();
-
+        DisplayTokenAvailabityStatus();
         
 
         if (buildingState.GetEffLevel() < buildingState.upgradeChecker.Length)
@@ -84,6 +94,18 @@ public class BuildingLogic : MonoBehaviour, IPointerClickHandler
         
 
 
+    }
+
+    private void DisplayTokenAvailabityStatus()
+    {
+        if (buildingState.availableUpgrades > 0)
+        {
+            tokenAvailableText.gameObject.SetActive(true);
+        }
+        else
+        {
+            tokenAvailableText.gameObject.SetActive(false);
+        }
     }
 
     public void CheckBuyAvailability()

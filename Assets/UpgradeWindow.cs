@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UpgradeWindow : MonoBehaviour
@@ -13,6 +14,7 @@ public class UpgradeWindow : MonoBehaviour
     private static UpgradeWindow instance;
     private GameObject panel;
 
+    
 
     private void Awake()
     {

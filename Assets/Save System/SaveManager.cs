@@ -109,6 +109,12 @@ public class SaveManager : MonoBehaviour
         autoSaveText.gameObject.SetActive(true);
     }
 
+    [ContextMenu("Save")]
+    public void SaveGame()
+    {
+        SaveSystem.SavePlayer();
+    }
+
     
 
 }

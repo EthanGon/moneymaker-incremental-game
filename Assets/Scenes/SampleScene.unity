@@ -763,7 +763,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4942017804653827316, guid: f006a1c32a7d0914487c08944234ad9b, type: 3}
       propertyPath: cd
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4942017804653827316, guid: f006a1c32a7d0914487c08944234ad9b, type: 3}
       propertyPath: range
