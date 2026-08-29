@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 3-MiningRig
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: MiningRig
-  baseMPS: 10
+  baseMPS: 20
   baseCost: 1000
+  normalBaseCost: 0
+  buildingIconn: {fileID: -106019146007740525, guid: 668d1463fd1bb3546bfdf5b13ddbd8f0, type: 3}

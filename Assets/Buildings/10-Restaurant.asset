@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: Restaurant
   baseMPS: 1500000
-  baseCost: 70000000000
+  baseCost: 7000000000
   normalBaseCost: 0
+  buildingIconn: {fileID: 0}

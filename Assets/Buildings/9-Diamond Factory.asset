@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87165e3295fb73445b8542b40bb21f3f, type: 3}
-  m_Name: 9-Bank
+  m_Name: 9-Diamond Factory
   m_EditorClassIdentifier: Assembly-CSharp::Building
-  buildingName: Bank
+  buildingName: Diamond Factory
   baseMPS: 250000
   baseCost: 5000000000
+  normalBaseCost: 0
+  buildingIconn: {fileID: 3244622203517571467, guid: 73915170e1258314fbfc2a5272d4983b, type: 3}

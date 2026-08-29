@@ -15,3 +15,5 @@ MonoBehaviour:
   buildingName: Casino
   baseMPS: 42000
   baseCost: 300000000
+  normalBaseCost: 0
+  buildingIconn: {fileID: 2713502332582107194, guid: 0bdd6336a1acb9244ac48bb91e552b46, type: 3}

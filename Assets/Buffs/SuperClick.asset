@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Buff
   buffName: SuperClick
   buffDescription: Strong Clicks!
-  buffMaxDuration: 8
+  buffMaxDuration: 10
   buffCurrDurection: 0
   isActive: 0

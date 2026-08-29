@@ -15,3 +15,5 @@ MonoBehaviour:
   buildingName: MoneyPrinter
   baseMPS: 50
   baseCost: 10000
+  normalBaseCost: 0
+  buildingIconn: {fileID: 6783060677118272473, guid: d1fb8c33ae91a504fb34e2791504d92b, type: 3}

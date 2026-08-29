@@ -35,5 +35,10 @@ public class OptionMenu : MonoBehaviour
         optionMenu.SetActive(false);
     }
 
+    public void ToggleMenu()
+    {
+        optionMenu.SetActive(!optionMenu.activeInHierarchy);
+    }
+
 
 }

@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Buff
   buffName: MoneyRain
   buffDescription: It's raining money!
-  buffMaxDuration: 30
+  buffMaxDuration: 60
   buffCurrDurection: 0
   isActive: 0

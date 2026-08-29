@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: 1-GamingMouse
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: GamingMouse
-  baseMPS: 0.5
+  baseMPS: 1
   baseCost: 10
+  normalBaseCost: 0
+  buildingIconn: {fileID: 0}
