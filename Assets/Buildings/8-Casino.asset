@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 8-Casino
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: Casino
-  baseMPS: 42000
+  baseMPS: 42500
   baseCost: 300000000
   normalBaseCost: 0
   buildingIconn: {fileID: 2713502332582107194, guid: 0bdd6336a1acb9244ac48bb91e552b46, type: 3}

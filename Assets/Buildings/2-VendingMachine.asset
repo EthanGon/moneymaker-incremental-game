@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2-VendingMachine
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: VendingMachine
-  baseMPS: 3
+  baseMPS: 5
   baseCost: 100
   normalBaseCost: 0
   buildingIconn: {fileID: -1067727577208071004, guid: f7c1c1892999c4346a91f9c407e26153, type: 3}

@@ -16,4 +16,4 @@ MonoBehaviour:
   baseMPS: 1
   baseCost: 10
   normalBaseCost: 0
-  buildingIconn: {fileID: 0}
+  buildingIconn: {fileID: -2987030897381344941, guid: 6781ba1b386a85f4b9a63084c283f232, type: 3}

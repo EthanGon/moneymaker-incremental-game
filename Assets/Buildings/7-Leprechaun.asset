@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 7-Leprechaun
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: Leprechaun
-  baseMPS: 8000
+  baseMPS: 8500
   baseCost: 18000000
   normalBaseCost: 0
   buildingIconn: {fileID: -870821889412280475, guid: 95ca318711ef2b946a5f7b68e860e388, type: 3}

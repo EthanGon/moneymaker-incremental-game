@@ -15,8 +15,8 @@ public class SteamIntegration : MonoBehaviour
         {
             Debug.Log(ex);
         }
-        
 
+        Debug.Log("Running Version: v1.0");
     }
 
     private void PrintSteamName()

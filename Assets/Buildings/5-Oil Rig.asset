@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 5-Oil Rig
   m_EditorClassIdentifier: Assembly-CSharp::Building
   buildingName: Oil Rig
-  baseMPS: 300
+  baseMPS: 350
   baseCost: 100000
   normalBaseCost: 0
   buildingIconn: {fileID: 4887139858338267651, guid: f8733610c3f014a41a2754ca503a342b, type: 3}
